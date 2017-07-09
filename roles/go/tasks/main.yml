@@ -1,0 +1,19 @@
+---
+# go1.4.3 tarで
+- name: create dir go1.4
+  file: path={{ go14root }} state=directory
+- name: deploy go1.4
+  shell: wget -O - https://storage.googleapis.com/golang/go1.4.3.linux-amd64.tar.gz | tar -zxvf - --directory={{ go14root }} --strip-components 1
+  args:
+    creates: '{{ go14root }}/bin/go'
+- name: prepare to install Go
+  git: repo=https://go.googlesource.com/go dest={{ goroot }} version=go1.8.3
+- name: install Go
+  shell: ./all.bash
+  args:
+    chdir: '{{ goroot }}/src'
+    creates: '{{ goroot }}/bin/go'
+- name: mkdir dev as $GOPATH
+  file:
+    path: "{{ gopath }}"
+    state: directory

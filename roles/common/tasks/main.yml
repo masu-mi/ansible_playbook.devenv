@@ -1,0 +1,13 @@
+---
+- name: update all packages in RedHat
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_os_family == 'RedHat'
+  become: yes
+  become_user: root
+- name: update all packages in Debian
+  apt: upgrade=dist
+  when: ansible_os_family == 'Debian'
+  become: yes
+  become_user: root

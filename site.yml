@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: no
+  vars:
+    - user_home: "/home/{{ user }}"
+    - goroot:    "{{ user_home }}/go"
+    - gopath:    "{{ user_home }}/dev"
+    - go14root:  "{{ user_home }}/go1.4"
+  pre_tasks:
+    - set_fact:
+        user: "{{ ansible_ssh_user }}"
+      when: user is not defined
+  roles:
+    - develop
+    - go

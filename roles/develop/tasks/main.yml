@@ -1,0 +1,79 @@
+---
+# home~ 配下の整理 - name: Install the dependency libraries "Development tools" of linuxbrew(Redhat)
+- name: Install the dependency libraries "with_items" of linuxbrew(Redhat)
+  yum: name="@Development Tools" state=present
+  when: ansible_os_family == 'RedHat'
+  become: yes
+  become_user: root
+- name: Install the dependency libraries "with_items" of linuxbrew(Redhat)
+  yum: name={{ item }} state=present
+  with_items:
+    - curl
+    - glibc-static
+    - cmake
+    - vim-enhanced
+    - telnet
+    - lsof
+    - git
+    - m4
+    - ruby
+    - texinfo
+    - bzip2-devel
+    - curl-devel
+    - expat-devel
+    - ncurses-devel
+    - mercurial
+    - tmux
+    - tcpdump
+    - zlib-devel
+    - wget
+  when: ansible_os_family == 'RedHat'
+  become: yes
+  become_user: root
+- name: Install the dependency libraries "with_items" of linuxbrew(Debian)
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - curl
+    - telnet
+    - lsof
+    - git
+    - m4
+    - ruby
+    - texinfo
+    - libbz2-dev
+    - libcurl4-openssl-dev
+    - libexpat-dev
+    - libncurses-dev
+    - mercurial
+    - tmux
+    - tcpdump
+    - zlib1g-dev
+    - wget
+  when: ansible_os_family == 'Debian'
+  become: yes
+  become_user: root
+- name: setup sshconfig
+  template: src=ssh-config dest={{ user_home }}/.ssh/config mode=0644
+- name: setup id_rsa.github
+  copy:
+    src: develop/id_rsa.github
+    dest: "{{ user_home }}/.ssh/id_rsa.github"
+    mode: 0600
+    owner: "{{ user }}"
+- name: dotfiles をインストールする
+  git: repo=https://github.com/masu-mi/dotfiles.git dest={{ user_home }}/dotfiles update=yes recursive=yes
+- name: 既存.bashrcの退避
+  shell: |
+    if [ -f {{ user_home }}/.bashrc ]; then
+      mv {{ user_home }}/.bashrc {{ user_home }}/.bashrc.bak
+    fi
+# home~以下にdir,linkを作る(本来は dotfilesのMakefileで実行する)
+- name: makedirs
+  file: path={{ item }} state=directory
+  with_items: [ "{{ user_home }}/.bashrcs", "{{ user_home }}/works", "{{ user_home }}/.local/bin", "{{ user_home }}/local/bin", "{{ user_home }}/local/lib", "{{ user_home }}/local/doc", "{{ user_home }}/.backup/vim" ]
+- name: dotfiles のlinkを作成する
+  file: src={{ user_home }}/dotfiles/{{ item }} path={{ user_home }}/{{ item }} state=link
+  with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .vimrc, .zshrc ]
+- name: .bash_tokens を作成する(サービストークン用)
+  file: path={{ user_home }}/.bash_tokens state=touch
