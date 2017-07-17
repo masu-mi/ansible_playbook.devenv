@@ -1,5 +1,8 @@
 ---
-# go1.4.3 tarで
+- name: mkdir dev as $GOPATH
+  file:
+    path: "{{ gopath }}"
+    state: directory
 - name: create dir go1.4
   file: path={{ go14root }} state=directory
 - name: deploy go1.4
@@ -13,7 +16,3 @@
   args:
     chdir: '{{ goroot }}/src'
     creates: '{{ goroot }}/bin/go'
-- name: mkdir dev as $GOPATH
-  file:
-    path: "{{ gopath }}"
-    state: directory
