@@ -27,6 +27,9 @@
     - tcpdump
     - zlib-devel
     - wget
+    - ntp
+    - ntp-doc
+    - ntptool
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
@@ -50,6 +53,9 @@
     - tcpdump
     - zlib1g-dev
     - wget
+    - ntp
+    - ntp-doc
+    - ntptool
   when: ansible_os_family == 'Debian'
   become: yes
   become_user: root
