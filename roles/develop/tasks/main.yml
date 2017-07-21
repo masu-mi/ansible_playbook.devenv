@@ -29,7 +29,7 @@
     - wget
     - ntp
     - ntp-doc
-    - ntptool
+    - ntpdate
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
@@ -55,7 +55,7 @@
     - wget
     - ntp
     - ntp-doc
-    - ntptool
+    - ntpdate
   when: ansible_os_family == 'Debian'
   become: yes
   become_user: root
