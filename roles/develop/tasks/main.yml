@@ -8,54 +8,32 @@
 - name: Install the dependency libraries "with_items" of linuxbrew(Redhat)
   yum: name={{ item }} state=present
   with_items:
-    - curl
-    - glibc-static
-    - cmake
-    - vim-enhanced
-    - telnet
-    - lsof
-    - git
-    - m4
-    - ruby
-    - texinfo
-    - bzip2-devel
-    - curl-devel
-    - expat-devel
-    - ncurses-devel
-    - mercurial
-    - tmux
-    - tcpdump
-    - zlib-devel
-    - wget
-    - ntp
-    - ntp-doc
-    - ntpdate
+    [
+      ntp, ntp-doc, ntpdate,
+      kernel-devel, kernel-headers, m4,
+      curl, git, mercurial, wget,
+      telnet, tmux, lsof, tcpdump,
+      vim-enhanced, ruby, texinfo,
+      glibc-static, cmake,
+      bzip2-devel, curl-devel, expat-devel, ncurses-devel, zlib-devel
+    ]
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
 - name: Install the dependency libraries "with_items" of linuxbrew(Debian)
   apt: name={{ item }} state=present
   with_items:
-    - build-essential
-    - curl
-    - telnet
-    - lsof
-    - git
-    - m4
-    - ruby
-    - texinfo
-    - libbz2-dev
-    - libcurl4-openssl-dev
-    - libexpat-dev
-    - libncurses-dev
-    - mercurial
-    - tmux
-    - tcpdump
-    - zlib1g-dev
-    - wget
-    - ntp
-    - ntp-doc
-    - ntpdate
+    [
+      ntp, ntp-doc, ntpdate,
+      build-essential, m4, gcc-6, g++-6,
+      curl, git, mercurial, wget,
+      telnet, tmux, lsof, tcpdump,
+      vim, ruby, texinfo,
+      libcurl4-openssl-dev, libexpat-dev, libncurses-dev, zlib1g-dev, libbz2-dev,
+      fakeroot, build-essential, gcc-arm-linux-gnueabihf,
+      libncurses5, libncurses5-dev, libelf-dev, binutils-dev, devscripts,
+      u-boot-tools,
+    ]
   when: ansible_os_family == 'Debian'
   become: yes
   become_user: root
