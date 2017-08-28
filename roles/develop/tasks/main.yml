@@ -13,9 +13,11 @@
       kernel-devel, kernel-headers, m4,
       curl, git, mercurial, wget,
       telnet, tmux, lsof, tcpdump,
+      java-1.8.0-openjdk-devel-debug,
       vim-enhanced, ruby, texinfo,
       glibc-static, cmake,
-      bzip2-devel, curl-devel, expat-devel, ncurses-devel, zlib-devel
+      bzip2-devel, curl-devel, expat-devel, ncurses-devel, zlib-devel,
+      yum-utils, device-mapper-persistent-data, lvm2,
     ]
   when: ansible_os_family == 'RedHat'
   become: yes
@@ -28,6 +30,7 @@
       build-essential, m4, gcc-6, g++-6,
       curl, git, mercurial, wget,
       telnet, tmux, lsof, tcpdump,
+      openjdk-8-jdk,
       vim, ruby, texinfo,
       libcurl4-openssl-dev, libexpat-dev, libncurses-dev, zlib1g-dev, libbz2-dev,
       fakeroot, build-essential, gcc-arm-linux-gnueabihf,
@@ -46,7 +49,7 @@
     mode: 0600
     owner: "{{ user }}"
 - name: dotfiles をインストールする
-  git: repo=https://github.com/masu-mi/dotfiles.git dest={{ user_home }}/dotfiles update=yes recursive=yes
+  git: repo=https://github.com/masu-mi/dotfiles.git dest={{ user_home }}/dotfiles update=yes recursive=yes version=master
 - name: 既存.bashrcの退避
   shell: |
     if [ -f {{ user_home }}/.bashrc ]; then

@@ -13,3 +13,9 @@
   roles:
     - develop
     - go
+    - role: mongrelion.docker
+      become: true
+      become_user: root
+      docker_version: 17.06
+      docker_config:
+        live-restore:   true
