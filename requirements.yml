@@ -1,1 +1,3 @@
 - src: mongrelion.docker
+- src: https://github.com/haxorof/ansible-role-docker-ce
+  name: haxorof.ansible-role-docker-ce

@@ -12,10 +12,22 @@
       when: user is not defined
   roles:
     - develop
-    - go
+    - role: haxorof.ansible-role-docker-ce
+      become: true
+      become_user: root
+      when: ansible_os_family == 'CentOS'
     - role: mongrelion.docker
       become: true
       become_user: root
       docker_version: 17.06
       docker_config:
         live-restore:   true
+      when: ansible_os_family == 'Debian'
+    - go
+  tasks:
+    - name: "make dev-user able to use docker"
+      user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        groups: "docker"
+        append: yes
