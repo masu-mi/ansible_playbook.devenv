@@ -1,14 +1,9 @@
 ---
-# home~ 配下の整理 - name: Install the dependency libraries "Development tools" of linuxbrew(Redhat)
-- name: Install the dependency libraries "with_items" of linuxbrew(Redhat)
-  yum: name="@Development Tools" state=present
-  when: ansible_os_family == 'RedHat'
-  become: yes
-  become_user: root
-- name: Install the dependency libraries "with_items" of linuxbrew(Redhat)
+- name: Install yum libraries(Redhat)
   yum: name={{ item }} state=present
   with_items:
     [
+      '@Development Tools',
       ntp, ntp-doc, ntpdate,
       kernel-devel, kernel-headers, m4,
       curl, git, mercurial, wget,
@@ -22,12 +17,12 @@
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
-- name: Install the dependency libraries "with_items" of linuxbrew(Debian)
+- name: Install apt libraries(Debian)
   apt: name={{ item }} state=present
   with_items:
     [
       ntp, ntp-doc, ntpdate,
-      build-essential, m4, gcc-6, g++-6,
+      build-essential, m4, gcc-6-base,
       curl, git, mercurial, wget,
       telnet, tmux, lsof, tcpdump,
       openjdk-8-jdk,
@@ -50,11 +45,13 @@
     owner: "{{ user }}"
 - name: dotfiles をインストールする
   git: repo=https://github.com/masu-mi/dotfiles.git dest={{ user_home }}/dotfiles update=yes recursive=yes version=master
-- name: 既存.bashrcの退避
+- name: backup exist .*rc
   shell: |
-    if [ -f {{ user_home }}/.bashrc ]; then
-      mv {{ user_home }}/.bashrc {{ user_home }}/.bashrc.bak
+    if [ -f {{ user_home }}/{{ item }} ]; then
+      mv {{ user_home }}/{{ item }} {{ user_home }}/{{ item }}.bak
     fi
+  with_items:
+    [ .bashrc, .zshrc ]
 # home~以下にdir,linkを作る(本来は dotfilesのMakefileで実行する)
 - name: makedirs
   file: path={{ item }} state=directory
