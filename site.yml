@@ -15,6 +15,16 @@
     - role: haxorof.ansible-role-docker-ce
       become: true
       become_user: root
+      docker_enable_audit: true
+      docker_setup_devicemapper: true
+      docker_enable_ce_edge: true
+      docker_daemon_config:
+        icc: false
+        init: true
+        userns-remap: default
+        disable-legacy-registry: true
+        live-restore: true
+        log-driver: journald
       when: ansible_os_family == 'CentOS'
     - role: mongrelion.docker
       become: true
@@ -26,8 +36,9 @@
     - go
   tasks:
     - name: "make dev-user able to use docker"
+      become: true
+      become_user: root
       user:
         name: "{{ user }}"
-        shell: /bin/bash
         groups: "docker"
         append: yes
