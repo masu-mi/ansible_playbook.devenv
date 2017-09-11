@@ -4,9 +4,9 @@
   with_items:
     [
       '@Development Tools',
-      ntp, ntp-doc, ntpdate,
-      kernel-devel, kernel-headers, m4,
+      ntp, ntp-doc, ntpdate, kernel-devel, kernel-headers, m4,
       curl, git, mercurial, wget,
+      llvm, lldb,
       telnet, tmux, lsof, tcpdump,
       java-1.8.0-openjdk-devel-debug,
       vim-enhanced, ruby, texinfo,
@@ -24,6 +24,7 @@
       ntp, ntp-doc, ntpdate,
       build-essential, m4, gcc-6-base,
       curl, git, mercurial, wget,
+      llvm, lldb,
       telnet, tmux, lsof, tcpdump,
       openjdk-8-jdk,
       vim, ruby, texinfo,
@@ -61,3 +62,20 @@
   with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .vimrc, .zshrc ]
 - name: .bash_tokens を作成する(サービストークン用)
   file: path={{ user_home }}/.bash_tokens state=touch
+- name: get rustup.sh
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+- name: install rust
+  shell: |
+    sh /tmp/rustup.sh -y
+  args:
+    creates: '{{ user_home }}/.cargo/bin/rustc'
+- name: install rust tools
+  shell: |
+    cargo install {{ item }}
+  args:
+    creates: '{{ user_home }}/.cargo/bin/racer'
+  with_items:
+    - rustfmt
+    - racer
