@@ -12,28 +12,9 @@
       when: user is not defined
   roles:
     - develop
-    - role: haxorof.ansible-role-docker-ce
+    - role: zaxos.docker-ce-ansible-role
       become: true
       become_user: root
-      docker_enable_audit: true
-      docker_setup_devicemapper: true
-      docker_enable_ce_edge: true
-      docker_daemon_config:
-        icc: false
-        init: true
-        userns-remap: default
-        disable-legacy-registry: true
-        live-restore: true
-        log-driver: journald
-      when: ansible_os_family == 'CentOS'
-    - role: mongrelion.docker
-      become: true
-      become_user: root
-      docker_version: 17.06
-      docker_config:
-        live-restore:   true
-      when: ansible_os_family == 'Debian'
-    - go
   tasks:
     - name: "make dev-user able to use docker"
       become: true
