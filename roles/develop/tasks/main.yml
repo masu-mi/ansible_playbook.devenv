@@ -60,6 +60,10 @@
 - name: dotfiles のlinkを作成する
   file: src={{ user_home }}/dotfiles/{{ item }} path={{ user_home }}/{{ item }} state=link
   with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .vimrc, .zshrc ]
+- name: for nvim
+  file: src={{ user_home }}/dotfiles/.vim path={{ user_home }}/.config/nvim state=link
+- name: for vim
+  file: src={{ user_home }}/dotfiles/.vim/init.vim path={{ user_home }}/.vimrc state=link
 - name: .bash_tokens を作成する(サービストークン用)
   file: path={{ user_home }}/.bash_tokens state=touch
 - name: get rustup.sh
