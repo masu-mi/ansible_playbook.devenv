@@ -56,10 +56,10 @@
 # home~以下にdir,linkを作る(本来は dotfilesのMakefileで実行する)
 - name: makedirs
   file: path={{ item }} state=directory
-  with_items: [ "{{ user_home }}/.bashrcs", "{{ user_home }}/works", "{{ user_home }}/.local/bin", "{{ user_home }}/local/bin", "{{ user_home }}/local/lib", "{{ user_home }}/local/doc", "{{ user_home }}/.backup/vim" ]
+  with_items: [ "{{ user_home }}/.bashrcs", "{{ user_home }}/works", "{{ user_home }}/.local/bin", "{{ user_home }}/local/bin", "{{ user_home }}/local/lib", "{{ user_home }}/local/doc", "{{ user_home }}/.backup/vim", "{{ user_home }}/.config" ]
 - name: dotfiles のlinkを作成する
   file: src={{ user_home }}/dotfiles/{{ item }} path={{ user_home }}/{{ item }} state=link
-  with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .vimrc, .zshrc ]
+  with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc ]
 - name: for nvim
   file: src={{ user_home }}/dotfiles/.vim path={{ user_home }}/.config/nvim state=link
 - name: for vim
