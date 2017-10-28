@@ -1,0 +1,11 @@
+---
+- name: get nvim source
+  git: repo=https://github.com/neovim/neovim.git version=v0.2.0 dest=/tmp/neovim.git
+- name: install nvim
+  shell: |
+    make distclean
+    make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX={{ user_home }}/local"
+    make install
+  args:
+    chdir: /tmp/neovim.git
+    creates: '{{ user_home }}/local/bin/nvim'

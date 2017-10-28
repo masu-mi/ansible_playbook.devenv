@@ -12,6 +12,7 @@
       when: user is not defined
   roles:
     - develop
+    - nvim
     - role: zaxos.docker-ce-ansible-role
       become: true
       become_user: root

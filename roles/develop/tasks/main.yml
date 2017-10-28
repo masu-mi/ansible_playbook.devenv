@@ -28,6 +28,7 @@
       telnet, tmux, lsof, tcpdump,
       openjdk-8-jdk,
       vim, ruby, texinfo,
+      libtool, libtool-bin, autoconf, automake, g++, pkg-config, unzip, cmake,
       libcurl4-openssl-dev, libexpat-dev, libncurses-dev, zlib1g-dev, libbz2-dev,
       fakeroot, build-essential, gcc-arm-linux-gnueabihf,
       libncurses5, libncurses5-dev, libelf-dev, binutils-dev, devscripts,
