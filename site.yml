@@ -11,8 +11,11 @@
         user: "{{ ansible_ssh_user }}"
       when: user is not defined
   roles:
+    - go
+    - python3
     - develop
     - nvim
+    - jq
     - role: zaxos.docker-ce-ansible-role
       become: true
       become_user: root

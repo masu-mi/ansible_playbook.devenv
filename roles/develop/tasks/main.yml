@@ -76,11 +76,14 @@
     sh /tmp/rustup.sh -y
   args:
     creates: '{{ user_home }}/.cargo/bin/rustc'
+- name: set restup deefault
+  shell: |
+    rustup default stable
 - name: install rust tools
   shell: |
     cargo install {{ item }}
   args:
-    creates: '{{ user_home }}/.cargo/bin/racer'
+    creates: '{{ user_home }}/.cargo/bin/{{ item }}'
   with_items:
     - rustfmt
     - racer

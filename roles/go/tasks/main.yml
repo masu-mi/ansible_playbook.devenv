@@ -1,8 +1,14 @@
 ---
 - name: mkdir dev as $GOPATH
   file:
-    path: "{{ gopath }}"
+    path: "{{ item }}"
     state: directory
+  with_items:
+    [
+     "{{ gopath }}",
+     "{{ gopath }}/bin",
+     "{{ gopath }}/src",
+    ]
 - name: create dir go1.4
   file: path={{ go14root }} state=directory
 - name: deploy go1.4
@@ -16,3 +22,16 @@
   args:
     chdir: '{{ goroot }}/src'
     creates: '{{ goroot }}/bin/go'
+- name: install glide
+  shell: |
+    curl https://glide.sh/get | sh
+  args:
+    creates: "{{ gopath }}/bin/glide"
+- name: install tools
+  shell: |
+    go get "{{ item }}"
+  with_items:
+    [
+      "github.com/peco/peco/cmd/peco",
+      "github.com/motemen/ghq",
+    ]
