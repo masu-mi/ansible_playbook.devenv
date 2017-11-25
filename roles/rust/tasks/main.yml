@@ -1,0 +1,21 @@
+---
+- name: get rustup.sh
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+- name: install rust
+  shell: |
+    sh /tmp/rustup.sh -y
+  args:
+    creates: '{{ user_home }}/.cargo/bin/rustc'
+- name: set restup deefault
+  shell: |
+    rustup default stable
+- name: install rust tools
+  shell: |
+    cargo install {{ item }}
+  args:
+    creates: '{{ user_home }}/.cargo/bin/{{ item }}'
+  with_items:
+    - rustfmt
+    - racer

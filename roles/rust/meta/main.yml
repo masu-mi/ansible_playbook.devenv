@@ -1,0 +1,6 @@
+galaxy_info:
+  author: Masumi KANAI(masu_mi)
+  license: license (BSD)
+  min_ansible_version: 1.2
+  galaxy_tags: []
+dependencies: [ common ]
