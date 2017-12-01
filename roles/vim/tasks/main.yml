@@ -1,0 +1,37 @@
+---
+- name: Install yum libraries(Redhat) for vim
+  yum: name={{ item }} state=present
+  with_items:
+    [
+      perl-ExtUtils-Embed,
+      lua, lua-devel, luajit, luajit-devel, luarocks,
+      python, python-devel,
+    ]
+  when: ansible_os_family == 'RedHat'
+  become: yes
+  become_user: root
+- name: install pkgs of perl-ExtUtils-Embed for vim
+  shell: |
+    yum install ""
+  become: yes
+  become_user: root
+- name: get vim source
+  git: repo=https://github.com/vim/vim.git version=v8.0.1349 dest=/tmp/vim.git
+- name: install vim
+  shell: |
+    ./configure \
+      --prefix=$HOME/local \
+      --enable-fail-if-missing \
+      --enable-terminal \
+      --enable-fontset --enable-cscope \
+      --enable-perlinterp=dynamic \
+      --enable-luainterp=yes \
+      --with-luajit \
+      --enable-pythoninterp=dynamic \
+      --with-python-config-dir=$(dirname $(rpm -ql python-devel | grep '/Setup' | head -n 1)) \
+      --enable-python3interp=dynamic \
+      --with-python3-config-dir=$(dirname $(rpm -ql  python35u-devel | grep '/Setup' | head -n 1))
+    make install
+  args:
+    chdir: /tmp/vim.git
+    creates: '{{ user_home }}/local/bin/vim'

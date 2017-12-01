@@ -1,6 +1,11 @@
 ---
+- name: install pkgs of pip3
+  shell: |
+    pip3 install "neovim"
+  become: yes
+  become_user: root
 - name: get nvim source
-  git: repo=https://github.com/neovim/neovim.git version=v0.2.0 dest=/tmp/neovim.git
+  git: repo=https://github.com/neovim/neovim.git version=v0.2.2 dest=/tmp/neovim.git
 - name: install nvim
   shell: |
     make distclean
