@@ -11,6 +11,9 @@
 - name: set restup deefault
   shell: |
     rustup default stable
+- name: set component add rust-src
+  shell: |
+    rustup component add rust-src
 - name: install rust tools
   shell: |
     cargo install {{ item }}
