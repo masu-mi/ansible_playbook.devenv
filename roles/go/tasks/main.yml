@@ -32,6 +32,7 @@
     go get "{{ item }}"
   with_items:
     [
+      "github.com/derekparker/delve/cmd/dlv",
       "github.com/peco/peco/cmd/peco",
       "github.com/motemen/ghq",
     ]

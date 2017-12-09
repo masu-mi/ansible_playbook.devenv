@@ -19,7 +19,7 @@
 - name: set python3 path
   shell: which python3.5
   register: python3_path
-- name: make link python3
+- name: make symlink python3
   file:
     path: "{{ user_home }}/local/bin/python3"
     src: "{{ python3_path.stdout_lines[0] }}"
@@ -27,7 +27,7 @@
 - name: set pip3 path
   shell: which pip3.5
   register: pip3_path
-- name: make link pip3
+- name: make symlink pip3
   file:
     path: "{{ user_home }}/local/bin/pip3"
     src: "{{ pip3_path.stdout_lines[0] }}"
