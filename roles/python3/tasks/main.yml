@@ -35,6 +35,9 @@
 - name: install pkgs of pip3
   shell: |
     pip3.5 install "{{ item }}"
-  with_items: [ virtualenv, virtualenvwrapper ]
+  with_items: [
+    virtualenv, virtualenvwrapper,
+    pyflakes3k, mypy, pylint, pep8,
+    ]
   become: yes
   become_user: root
