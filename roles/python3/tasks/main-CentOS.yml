@@ -1,0 +1,40 @@
+---
+- name: Enable ius-release repos.
+  yum: name=https://centos7.iuscommunity.org/ius-release.rpm
+  become: yes
+  become_user: root
+- replace: dest=/etc/yum.repos.d/{{item}} regexp="enabled *= *1" replace="enabled=0"
+  with_items:
+    - ius.repo
+  become: yes
+  become_user: root
+- name: Install Python3
+  yum:
+    name: "{{ item }}"
+    state: latest
+    enablerepo: ius
+  become: yes
+  become_user: root
+  with_items: [ "python35u", "python35u-pip" ]
+- name: set python3 path
+  shell: which python3.5
+  register: python3_path
+- name: make symlink python3
+  file:
+    path: "{{ user_home }}/local/bin/python3"
+    src: "{{ python3_path.stdout_lines[0] }}"
+    state: link
+- name: set pip3 path
+  shell: which pip3.5
+  register: pip3_path
+- name: make symlink pip3
+  file:
+    path: "{{ user_home }}/local/bin/pip3"
+    src: "{{ pip3_path.stdout_lines[0] }}"
+    state: link
+- name: install pkgs with pip3
+  shell: |
+    pip3 install "{{ item }}"
+  with_items: "{{ pip3_pkgs }}"
+  become: yes
+  become_user: root

@@ -1,0 +1,5 @@
+---
+  pip3_pkgs: [
+    virtualenv, virtualenvwrapper,
+    pyflakes3k, mypy, pylint, pep8,
+  ]

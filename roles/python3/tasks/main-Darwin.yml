@@ -1,0 +1,12 @@
+---
+- name: install python3 and pip3
+  homebrew:
+    name: python3
+  become: yes
+  become_user: root
+- name: install pkgs with pip3
+  shell: |
+    pip3 install "{{ item }}"
+  with_items: "{{ pip3_pkgs }}"
+  become: yes
+  become_user: root
