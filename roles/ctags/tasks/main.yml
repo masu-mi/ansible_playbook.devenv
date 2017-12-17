@@ -1,0 +1,12 @@
+---
+- name: get universal ctags source
+  git: repo=https://github.com/universal-ctags/ctags.git dest=/tmp/ctags.git
+- name: install ctags
+  shell: |
+    ./autogen.sh
+    ./configure --prefix={{ user_home }}/local
+    make
+    make install
+  args:
+    chdir: /tmp/ctags.git
+    creates: '{{ user_home }}/local/bin/ctags'
