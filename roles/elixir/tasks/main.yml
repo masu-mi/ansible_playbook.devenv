@@ -1,0 +1,17 @@
+---
+- name: Install Elixir
+  yum:
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  become_user: root
+  with_items: [ "elixir" ]
+  when: ansible_os_family == 'RedHat'
+- name: Install Elixir
+  apt:
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  become_user: root
+  with_items: [ "elixir", "esl-erlang" ]
+  when: ansible_distribution == 'Ubuntu'

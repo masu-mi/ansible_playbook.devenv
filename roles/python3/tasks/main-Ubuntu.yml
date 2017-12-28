@@ -1,0 +1,7 @@
+---
+- name: install pkgs with pip3
+  shell: |
+    pip3 install "{{ item }}"
+  with_items: "{{ pip3_pkgs }}"
+  become: yes
+  become_user: root
