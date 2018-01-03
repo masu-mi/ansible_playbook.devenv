@@ -1,7 +1,14 @@
 ---
+- name: Install pip via apt
+  apt: name={{ item }} state=present
+  with_items:
+    [ python-pip, python3-pip, python3-dev ]
+  become: yes
+  become_user: root
 - name: install pkgs with pip3
-  shell: |
-    pip3 install "{{ item }}"
+  pip:
+    name: "{{ item }}"
+    executable: pip3
   with_items: "{{ pip3_pkgs }}"
   become: yes
   become_user: root

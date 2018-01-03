@@ -5,8 +5,9 @@
   become: yes
   become_user: root
 - name: install pkgs with pip3
-  shell: |
-    pip3 install "{{ item }}"
+  pip:
+    name: "{{ item }}"
+    executable: pip3
   with_items: "{{ pip3_pkgs }}"
   become: yes
   become_user: root

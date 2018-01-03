@@ -4,15 +4,19 @@
   with_items:
     [
       perl-ExtUtils-Embed,
-      lua, lua-devel, luajit, luajit-devel, luarocks,
       python, python-devel,
     ]
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
-- name: install pkgs of perl-ExtUtils-Embed for vim
-  shell: |
-    yum install ""
+- name: Install apt libraries(Redhat) for vim
+  apt: name={{ item }} state=present
+  with_items:
+    [
+      perl-base, perl-modules, libperl-dev,
+      python, python-dev,
+    ]
+  when: ansible_distribution == 'Ubuntu'
   become: yes
   become_user: root
 - name: get vim source
@@ -30,8 +34,26 @@
       --enable-pythoninterp=dynamic \
       --with-python-config-dir=$(dirname $(rpm -ql python-devel | grep '/Setup' | head -n 1)) \
       --enable-python3interp=dynamic \
-      --with-python3-config-dir=$(dirname $(rpm -ql  python35u-devel | grep '/Setup' | head -n 1))
-    make install
+      --with-python3-config-dir=$(dirname $(rpm -ql  python35u-devel | grep '/Setup' | head -n 1)); \
+      make install
+  when: ansible_os_family == 'RedHat'
+  args:
+    chdir: /tmp/vim.git
+    creates: '{{ user_home }}/local/bin/vim'
+- name: install vim
+  shell: |
+    ./configure \
+      --prefix=$HOME/local \
+      --enable-fail-if-missing \
+      --enable-terminal \
+      --enable-fontset --enable-cscope \
+      --enable-perlinterp=dynamic \
+      --enable-luainterp=yes \
+      --with-luajit \
+      --enable-pythoninterp=dynamic \
+      --enable-python3interp=dynamic \
+      make install
+  when: ansible_distribution == 'Ubuntu'
   args:
     chdir: /tmp/vim.git
     creates: '{{ user_home }}/local/bin/vim'
