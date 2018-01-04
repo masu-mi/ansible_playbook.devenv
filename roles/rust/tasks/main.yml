@@ -10,7 +10,6 @@
     creates: '{{ user_home }}/.cargo/bin/rustc'
 - name: set restup deefault
   shell: |
-    reload
     rustup default stable
 - name: set component add rust-src
   shell: |
