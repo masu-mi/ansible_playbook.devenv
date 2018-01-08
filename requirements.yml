@@ -1,1 +1,5 @@
 - src: zaxos.docker-ce-ansible-role
+  version: master
+- src: https://github.com/cimon-io/ansible-role-asdf.git
+  name: cimon-io.asdf
+  version: master
