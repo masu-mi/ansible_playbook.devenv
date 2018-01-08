@@ -7,7 +7,7 @@
   become: yes
   become_user: root
 - name: update all packages in Debian
-  apt: upgrade=dist
+  apt: upgrade=dist update_cache=yes
   when: ansible_os_family == 'Debian'
   become: yes
   become_user: root

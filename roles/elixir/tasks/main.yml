@@ -5,7 +5,7 @@
     state: latest
   become: yes
   become_user: root
-  with_items: [ "elixir" ]
+  with_items: [ "elixir", "inotify-tools" ]
   when: ansible_os_family == 'RedHat'
 - name: Install Elixir
   apt:
@@ -13,5 +13,5 @@
     state: latest
   become: yes
   become_user: root
-  with_items: [ "elixir", "esl-erlang" ]
+  with_items: [ "elixir", "esl-erlang", "inotify-tools" ]
   when: ansible_distribution == 'Ubuntu'

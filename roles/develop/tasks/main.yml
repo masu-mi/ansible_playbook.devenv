@@ -18,7 +18,7 @@
   become: yes
   become_user: root
 - name: Install apt libraries(Debian)
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present update_cache=yes
   with_items:
     [
       ntp, ntp-doc, ntpdate,
@@ -53,14 +53,22 @@
       mv {{ user_home }}/{{ item }} {{ user_home }}/{{ item }}.bak
     fi
   with_items:
-    [ .bashrc, .zshrc ]
+    [ .bashrc, .bash_profile, .zshrc ]
 # home~以下にdir,linkを作る(本来は dotfilesのMakefileで実行する)
 - name: makedirs
-  file: path={{ item }} state=directory
-  with_items: [ "{{ user_home }}/.bashrcs", "{{ user_home }}/works", "{{ user_home }}/.local/bin", "{{ user_home }}/local/bin", "{{ user_home }}/local/lib", "{{ user_home }}/local/doc", "{{ user_home }}/.backup/vim", "{{ user_home }}/.config" ]
+  file: path={{ user_home }}/{{ item }} state=directory
+  with_items: [
+    ".bashrcs",
+    "works",
+    "local/bin",
+    "local/lib",
+    "local/doc",
+    ".backup/vim",
+    ".config",
+    ]
 - name: dotfiles のlinkを作成する
   file: src={{ user_home }}/dotfiles/{{ item }} path={{ user_home }}/{{ item }} state=link
-  with_items: [ .ackrc, .bashrc, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc ]
+  with_items: [ .ackrc, .bashrc, .bash_profile, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc ]
 - name: for nvim
   file: src={{ user_home }}/dotfiles/.vim path={{ user_home }}/.config/nvim state=link
 - name: for vim
