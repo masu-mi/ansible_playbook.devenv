@@ -1,0 +1,26 @@
+---
+- name: fetch rbenv
+  git:
+    repo: "https://github.com/rbenv/rbenv.git"
+    dest: "{{ user_home }}/.rbenv"
+    version: "{{ rbenv_version }}"
+- name: build rbenv
+  shell: |
+    src/configure && make -C src
+  args:
+    creates: "{{ user_home }}/.rbenv/bin/rbenv"
+- set_fact:
+    rbenv_root: "{{ user_home }}/.rbenv"
+- file:
+    path: "{{ rbenv_root }}/plugins"
+    state: directory
+- name: install ruby-build
+  git:
+    repo: "https://github.com/rbenv/ruby-build.git"
+    dest: "{{ rbenv_root }}/plugins/ruby-build"
+    version: "{{ ruby_build_version }}"
+- name: install rubies
+  shell: |
+    {{ user_home }}/.rbenv/bin/rbenv init > /dev/null 2>&1
+    {{ user_home }}/.rbenv/bin/rbenv install {{ item }}
+  with_items: "{{ ruby_versions }}"
