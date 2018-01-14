@@ -1,0 +1,10 @@
+---
+- name: install nodebrew
+  shell: |
+    curl -L git.io/nodebrew | perl - setup
+  args:
+    creates: "{{ user_home }}/.nodebrew/current/bin/nodebrew"
+- name: install nodejs
+  shell: |
+    {{ user_home }}/.nodebrew/current/bin/nodebrew install {{ item }} | cat
+  with_items: "{{ nodejs_versions }}"

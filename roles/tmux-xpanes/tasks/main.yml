@@ -1,0 +1,11 @@
+---
+- name: fetch tmux-xpanes
+  get_url:
+    url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
+    dest: /tmp/xpanes
+- name: install tmux-xpanes
+  shell: |
+    install -m 0755 xpanes {{ user_home }}/local/bin/xpanes
+    echo "Ref: https://github.com/greymd/tmux-xpanes"
+  args:
+    chdir: /tmp/
