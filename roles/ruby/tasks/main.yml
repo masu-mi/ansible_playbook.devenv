@@ -1,4 +1,18 @@
 ---
+- name: install dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    [ openssl-devel, readline-devel ]
+  become: yes
+  become_user: root
+  when: ansible_os_family == 'RedHat'
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    [ libssl-dev, libreadline-dev ]
+  become: yes
+  become_user: root
+  when: ansible_distribution == 'Ubuntu'
 - name: fetch rbenv
   git:
     repo: "https://github.com/rbenv/rbenv.git"

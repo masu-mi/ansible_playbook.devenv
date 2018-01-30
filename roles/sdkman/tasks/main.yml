@@ -1,0 +1,11 @@
+---
+- name: install sdkman
+  shell: |
+    curl -s "https://get.sdkman.io" | bash
+- name: install SDKs
+  shell: |
+    . "{{ user_home }}/.sdkman/bin/sdkman-init.sh"
+    sdk install {{ item }}
+  args:
+    executable: /bin/bash
+  with_items: "{{ sdkman_sdks }}"
