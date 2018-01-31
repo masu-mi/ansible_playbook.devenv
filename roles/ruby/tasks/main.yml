@@ -36,5 +36,5 @@
 - name: install rubies
   shell: |
     {{ user_home }}/.rbenv/bin/rbenv init > /dev/null 2>&1
-    {{ user_home }}/.rbenv/bin/rbenv install {{ item }}
+    {{ user_home }}/.rbenv/bin/rbenv install -s {{ item }}
   with_items: "{{ ruby_versions }}"

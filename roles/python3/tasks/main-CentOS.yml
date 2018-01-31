@@ -32,10 +32,3 @@
     path: "{{ user_home }}/local/bin/pip3"
     src: "{{ pip3_path.stdout_lines[0] }}"
     state: link
-- name: install pkgs with pip3
-  pip:
-    name: "{{ item }}"
-    executable: pip3
-  with_items: "{{ pip3_pkgs }}"
-  become: yes
-  become_user: root

@@ -29,7 +29,7 @@
     creates: "{{ gopath }}/bin/glide"
 - name: install tools
   shell: |
-    {{ goroot }}/bin/go get "{{ item }}"
+    GOPATH={{ gopath }} {{ goroot }}/bin/go get "{{ item }}"
   with_items:
     [
       "github.com/derekparker/delve/cmd/dlv",

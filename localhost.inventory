@@ -1,0 +1,6 @@
+[all]
+localhost
+
+[all:vars]
+user=masumi
+ansible_connection=ssh

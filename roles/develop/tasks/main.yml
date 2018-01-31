@@ -38,7 +38,7 @@
   become: yes
   become_user: root
 - name: setup sshconfig
-  template: src=ssh-config dest={{ user_home }}/.ssh/config mode=0644
+  template: src=ssh-config dest={{ user_home }}/.ssh/config mode=0644 backup=yes
 - name: setup id_rsa.github
   copy:
     src: develop/id_rsa.github
@@ -68,7 +68,7 @@
     ]
 - name: dotfiles のlinkを作成する
   file: src={{ user_home }}/dotfiles/{{ item }} path={{ user_home }}/{{ item }} state=link
-  with_items: [ .ackrc, .bashrc, .bash_profile, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc ]
+  with_items: [ .ackrc, .bashrc, .bash_profile, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc, .sqliterc ]
 - name: for nvim
   file: src={{ user_home }}/dotfiles/.vim path={{ user_home }}/.config/nvim state=link
 - name: for vim

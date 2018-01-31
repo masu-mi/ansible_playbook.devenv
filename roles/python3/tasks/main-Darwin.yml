@@ -4,10 +4,3 @@
     name: python3
   become: yes
   become_user: root
-- name: install pkgs with pip3
-  pip:
-    name: "{{ item }}"
-    executable: pip3
-  with_items: "{{ pip3_pkgs }}"
-  become: yes
-  become_user: root
