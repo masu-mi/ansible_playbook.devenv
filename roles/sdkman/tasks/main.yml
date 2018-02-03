@@ -1,7 +1,11 @@
 ---
+- name: fetch sdkman installer
+  get_url:
+    url: "https://get.sdkman.io"
+    dest: "/tmp/sdkman_installer.sh"
+    mode: 0755
 - name: install sdkman
-  shell: |
-    curl -s "https://get.sdkman.io" | bash
+  shell: "/tmp/sdkman_installer.sh"
 - name: install SDKs
   shell: |
     . "{{ user_home }}/.sdkman/bin/sdkman-init.sh"

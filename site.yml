@@ -35,6 +35,9 @@
     - role: nodejs
       become: yes
       become_user: "{{ user }}"
+    - role: sdkman
+      become: yes
+      become_user: "{{ user }}"
     - role: vim
       become: yes
       become_user: "{{ user }}"
