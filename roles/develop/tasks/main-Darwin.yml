@@ -1,0 +1,17 @@
+---
+- name: Install apt libraries(Darwin)
+  become: yes
+  become_user: root
+  homebrew: name={{ item }} state=present update_cache=yes
+  with_items:
+    [
+      ntp, gcc, gcc@6,
+      curl, git, mercurial, wget,
+      llvm, lldb,
+      telnet, tmux, lsof, tcpdump,
+      vim, ruby,
+      libtool, autoconf, automake, unzip, cmake,
+      fakeroot,
+      ncurses, binutils,
+      u-boot-tools,
+    ]

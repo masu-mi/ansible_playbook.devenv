@@ -1,0 +1,18 @@
+---
+- name: Install yum libraries(Redhat)
+  become: yes
+  become_user: root
+  yum: name={{ item }} state=present
+  with_items:
+    [
+      '@Development Tools',
+      ntp, ntp-doc, ntpdate, kernel-devel, kernel-headers, m4,
+      curl, git, mercurial, wget,
+      llvm, lldb,
+      telnet, tmux, lsof, tcpdump,
+      java-1.8.0-openjdk-devel-debug,
+      vim-enhanced, ruby, texinfo,
+      glibc-static, cmake,
+      bzip2-devel, curl-devel, expat-devel, ncurses-devel, zlib-devel,
+      yum-utils, device-mapper-persistent-data, lvm2,
+    ]
