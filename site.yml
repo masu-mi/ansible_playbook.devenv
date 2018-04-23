@@ -3,17 +3,14 @@
   become: no
   vars:
     - user_home: "/home/{{ user }}"
-    - goroot:    "{{ user_home }}/go"
-    - gopath:    "{{ user_home }}/dev"
-    - go14root:  "{{ user_home }}/go1.4"
+    - go_dir: "{{ user_home }}"
+    - tmux_dir: "{{ user_home }}/local"
   pre_tasks:
     - set_fact:
         user: "{{ ansible_user }}"
       when: user is not defined
   roles:
     - role: common
-      become: yes
-      become_user: "{{ user }}"
     - role: develop
       become: yes
       become_user: "{{ user }}"

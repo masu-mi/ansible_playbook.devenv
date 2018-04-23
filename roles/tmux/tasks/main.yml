@@ -1,19 +1,18 @@
 ---
-- name: install dependency(Redhat)
-  yum: name={{ item }} state=present
-  with_items: [
-    "libevent", "libevent-devel",
-    "utf8proc", "utf8proc-devel",
-  ]
-  become: yes
-  become_user: root
-  when: ansible_os_family == 'RedHat'
-- name: install dependency(Ubuntu)
-  apt: name={{ item }} update_cache=yes
-  with_items: [
-    "libevent-2.0-5", "libevent-dev",
-    "libutf8proc1", "libutf8proc-dev",
-  ]
+- block:
+    - name: install dependency(Redhat)
+      yum: name={{ item }} state=present
+      with_items: [
+        "libevent", "libevent-devel",
+        "utf8proc", "utf8proc-devel",
+      ]
+      when: ansible_os_family == 'RedHat'
+    - name: install dependency(Ubuntu)
+      apt: name={{ item }} update_cache=yes
+      with_items: [
+        "libevent-2.0-5", "libevent-dev",
+        "libutf8proc1", "libutf8proc-dev",
+      ]
   become: yes
   become_user: root
   when: ansible_distribution == 'Ubuntu'
@@ -26,10 +25,10 @@
     tar xzf ./tmux-{{ tmux_version }}.tar.gz
     cd ./tmux-{{ tmux_version }}
     ./configure \
-      --prefix={{ user_home }}/local \
+      --prefix={{ tmux_dir }} \
       --enable-utf8proc
     make
     make install
   args:
     chdir: /tmp/
-    creates: "{{ user_home }}/local/bin/tmux"
+    creates: "{{ tmux_dir }}/bin/tmux"
