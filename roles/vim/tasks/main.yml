@@ -12,7 +12,7 @@
 - name: install vim(RedHat)
   shell: |
     ./configure \
-      --prefix={{ user_home }}/local \
+      --prefix={{ vim_dir }} \
       --enable-fail-if-missing \
       --enable-terminal \
       --enable-fontset --enable-cscope \
@@ -27,7 +27,7 @@
   when: ansible_os_family == 'RedHat'
   args:
     chdir: /tmp/vim.git
-    creates: '{{ user_home }}/local/bin/vim'
+    creates: '{{ vim_dir }}/bin/vim'
 - name: Install apt libraries(Ubuntu) for vim
   apt: name={{ item }} state=present
   with_items:
@@ -43,7 +43,7 @@
 - name: install vim(Ubuntu)
   shell: |
     ./configure \
-      --prefix={{ user_home }}/local \
+      --prefix={{ vim_dir }} \
       --enable-fail-if-missing \
       --enable-terminal \
       --enable-fontset --enable-cscope \
@@ -56,4 +56,4 @@
   when: ansible_distribution == 'Ubuntu'
   args:
     chdir: /tmp/vim.git
-    creates: '{{ user_home }}/local/bin/vim'
+    creates: '{{ vim_dir }}/bin/vim'

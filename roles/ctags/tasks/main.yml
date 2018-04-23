@@ -4,9 +4,9 @@
 - name: install ctags
   shell: |
     ./autogen.sh
-    ./configure --prefix={{ user_home }}/local
+    ./configure --prefix={{ ctags_dir }}
     make
     make install
   args:
     chdir: /tmp/ctags.git
-    creates: '{{ user_home }}/local/bin/ctags'
+    creates: '{{ ctags_dir }}/bin/ctags'

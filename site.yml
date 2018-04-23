@@ -2,9 +2,14 @@
 - hosts: all
   become: no
   vars:
+    - develop_user: "{{ user }}"
     - user_home: "/home/{{ user }}"
     - go_dir: "{{ user_home }}"
+    - vim_dir: "{{ user_home }}/local"
     - tmux_dir: "{{ user_home }}/local"
+    - tmux_xpane_dir: "{{ user_home }}/local"
+    - jq_dir: "{{ user_home }}/local"
+    - ctags_dir: "{{ user_home }}/local"
   pre_tasks:
     - set_fact:
         user: "{{ ansible_user }}"

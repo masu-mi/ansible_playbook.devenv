@@ -20,6 +20,4 @@
     {{ user_home }}/.cargo/bin/cargo install {{ item }}
   args:
     creates: '{{ user_home }}/.cargo/bin/{{ item }}'
-  with_items:
-    - rustfmt
-    - racer
+  with_items: "{{ rust_packages }}"

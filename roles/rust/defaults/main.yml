@@ -1,2 +1,2 @@
 ---
-# defaults file for rust
+rust_packages: [ rustfmt, racer ]

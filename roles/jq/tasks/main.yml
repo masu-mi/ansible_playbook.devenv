@@ -10,5 +10,5 @@
 - name: Install jq
   get_url:
     url: "https://github.com/stedolan/jq/releases/download/jq-{{ jq_version }}/jq-{{ jq_osarch }}"
-    dest: "{{ user_home }}/local/bin/jq"
+    dest: "{{ jq_dir }}/bin/jq"
     mode: 0755
