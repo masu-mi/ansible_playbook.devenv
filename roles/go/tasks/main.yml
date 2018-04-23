@@ -35,4 +35,5 @@
       "github.com/derekparker/delve/cmd/dlv",
       "github.com/peco/peco/cmd/peco",
       "github.com/motemen/ghq",
+      "github.com/direnv/direnv",
     ]
