@@ -20,7 +20,7 @@
         src: develop/id_rsa.github
         dest: "{{ develop_home }}/.ssh/id_rsa.github"
         mode: 0600
-        owner: "{{ ansible_user }}"
+        owner: "{{ develop_user }}"
         backup: yes
     - name: dotfiles をインストールする
       git:
