@@ -1,0 +1,9 @@
+---
+- git:
+    repo: "https://github.com/junegunn/fzf.git"
+    dest: "{{ fzf_dir }}"
+    version: "{{ fzf_branch }}"
+- shell: ./install
+  args:
+    chdir: "{{ fzf_dir }}"
+    creates: "{{ fzf_dir }}/bin/fzf"
