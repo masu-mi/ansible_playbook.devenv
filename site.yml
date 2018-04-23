@@ -17,8 +17,6 @@
   roles:
     - role: common
     - role: develop
-      become: yes
-      become_user: "{{ user }}"
     - role: rust
       become: yes
       become_user: "{{ user }}"

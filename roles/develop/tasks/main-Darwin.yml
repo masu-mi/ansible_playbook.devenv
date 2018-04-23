@@ -1,7 +1,5 @@
 ---
 - name: Install apt libraries(Darwin)
-  become: yes
-  become_user: root
   homebrew: name={{ item }} state=present update_cache=yes
   with_items:
     [
