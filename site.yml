@@ -10,6 +10,7 @@
     - tmux_xpane_dir: "{{ user_home }}/local"
     - jq_dir: "{{ user_home }}/local"
     - ctags_dir: "{{ user_home }}/local"
+    - develop_set_github_key: yes
   pre_tasks:
     - set_fact:
         user: "{{ ansible_user }}"

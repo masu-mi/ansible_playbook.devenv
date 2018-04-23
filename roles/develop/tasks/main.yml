@@ -22,9 +22,10 @@
         mode: 0600
         owner: "{{ develop_user }}"
         backup: yes
-    - name: dotfiles をインストールする
+      when: develop_set_github_key == true
+    - name: clone dotfiles
       git:
-        repo: https://github.com/masu-mi/dotfiles.git
+        repo: "{{ develop_dotfiles_repo }}"
         dest: "{{ develop_home }}/dotfiles"
         update: yes
         recursive: yes
