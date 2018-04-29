@@ -5,6 +5,8 @@
         name: '*'
         state: latest
       when: ansible_os_family == 'RedHat'
+    - apt: name=apt-utils state=present update_cache=yes
+      when: ansible_os_family == 'Debian'
     - apt: upgrade=dist update_cache=yes
       when: ansible_os_family == 'Debian'
   become: yes

@@ -23,8 +23,6 @@
       become: yes
       become_user: "{{ user }}"
     - role: go
-      become: yes
-      become_user: "{{ user }}"
     - role: ruby
       become: yes
       become_user: "{{ user }}"
