@@ -17,7 +17,7 @@
       args:
         creates: '{{ go14root }}/bin/go'
     - name: prepare to install Go
-      git: repo=https://go.googlesource.com/go dest={{ goroot }} version=go1.9
+      git: repo=https://go.googlesource.com/go dest={{ goroot }} version=go1.10.1
     - name: install Go
       shell: ./all.bash
       args:
