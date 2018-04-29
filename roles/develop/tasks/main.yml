@@ -4,10 +4,12 @@
       when: ansible_system == "Darwin"
     - include: main-RedHat.yml
       when: ansible_os_family == 'RedHat'
-    - include: main-Debian.yml
-      when: ansible_os_family == 'Debian'
   become: yes
   become_user: root
+- include: main-Debian.yml
+  when: ansible_os_family == 'Debian'
+  become: yes
+  become_user: "{{ develop_user }}"
 - block:
     - name: setup sshconfig
       template:
