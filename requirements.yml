@@ -3,3 +3,6 @@
 - src: https://github.com/cimon-io/ansible-role-asdf.git
   name: cimon-io.asdf
   version: master
+- src: https://github.com/andrewrothstein/ansible-bazel.git
+  name: andrewrothstein.bazel
+  version: master

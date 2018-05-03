@@ -19,6 +19,11 @@
     - role: common
     - role: develop
     - role: fzf
+    - role: andrewrothstein.bazel
+      bazel_ver: 0.13.0
+      bazel_checksums:
+        '0.13.0':
+          linux-x86_64: sha256:c90ed6d8478fd543d936702d2eb3ed034f46b2223fac790598db70c161552418
     - role: rust
       become: yes
       become_user: "{{ user }}"
