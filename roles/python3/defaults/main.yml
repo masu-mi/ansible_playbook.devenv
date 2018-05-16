@@ -3,5 +3,5 @@
     setuptools, wheel, twine,
     virtualenv, virtualenvwrapper,
     pyflakes3k, mypy, pylint, pep8,
-    cookiecutter,
+    cookiecutter, aws,
   ]
