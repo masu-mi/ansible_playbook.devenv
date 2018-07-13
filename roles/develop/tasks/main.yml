@@ -53,7 +53,7 @@
         ]
     - name: dotfiles のlinkを作成する
       file: src={{ develop_home }}/dotfiles/{{ item }} path={{ develop_home }}/{{ item }} state=link
-      with_items: [ .ackrc, .bashrc, .bash_profile, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc, .sqliterc ]
+      with_items: [ .ackrc, .bashrc, .bash_profile, .ctags.d, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc, .sqliterc ]
     - name: for nvim
       file: src={{ develop_home }}/dotfiles/.vim path={{ develop_home }}/.config/nvim state=link
     - name: for vim
