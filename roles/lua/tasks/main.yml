@@ -6,7 +6,7 @@
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
-- name: Install apt libraries(Redhat) for vim
+- name: Install apt libraries(Ubuntu) for vim
   apt: name={{ item }} state=present
   with_items:
     [ lua5.2, lua5.2-doc, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
