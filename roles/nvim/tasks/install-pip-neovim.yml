@@ -1,0 +1,4 @@
+---
+- name: install pkgs of pip3
+  shell: |
+    pip3 install "neovim"

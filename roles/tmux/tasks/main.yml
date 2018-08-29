@@ -9,10 +9,7 @@
       when: ansible_os_family == 'RedHat'
     - name: install dependency(Ubuntu)
       apt: name={{ item }} update_cache=yes
-      with_items: [
-        "libevent-2.0-5", "libevent-dev",
-        "libutf8proc1", "libutf8proc-dev",
-      ]
+      with_items: "{{ tmux_dependent_apt_pkgs[ansible_distribution_major_version] }}"
   become: yes
   become_user: root
   when: ansible_distribution == 'Ubuntu'
