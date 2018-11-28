@@ -6,7 +6,7 @@
   become_user: root
   when: ansible_distribution == 'Darwin'
 - name: get nvim source
-  git: repo=https://github.com/neovim/neovim.git version=v0.2.2 dest=/tmp/neovim.git
+  git: repo=https://github.com/neovim/neovim.git version=v0.3.1 dest=/tmp/neovim.git
 - name: install nvim
   shell: |
     make distclean
