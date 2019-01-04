@@ -1,11 +1,11 @@
 ---
-- name: Install apt libraries(Darwin)
+- name: Install libraries(Darwin)
   homebrew: name={{ item }} state=present
   with_items:
     [
       ntp, gcc, gcc@6,
       curl, git, mercurial, wget,
-      llvm, lldb,
+      llvm,
       telnet, tmux, lsof, tcpdump,
       vim, ruby,
       libtool, autoconf, automake, unzip, cmake,
@@ -13,3 +13,5 @@
       ncurses, binutils,
       u-boot-tools,
     ]
+  become: yes
+  become_user: "{{ ansible_user_id }}"
