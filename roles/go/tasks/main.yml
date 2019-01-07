@@ -10,16 +10,18 @@
          "{{ gopath }}/bin",
          "{{ gopath }}/src",
         ]
-    - name: create dir go1.4
-      file: path={{ go14root }} state=directory
-    - name: deploy go1.4
-      shell: wget -O - https://storage.googleapis.com/golang/go1.4.3.linux-amd64.tar.gz | tar -zxvf - --directory={{ go14root }} --strip-components 1
+    - name: create bootstrap go dir(e.g. go1.4)
+      file: path={{ go_boot_root }} state=directory
+    - name: deploy bootstrap go
+      shell: wget -O - https://storage.googleapis.com/golang/go{{ go_boot_version }}.{{ go_target_arch }}.tar.gz | tar -zxvf - --directory={{ go_boot_root }} --strip-components 1
       args:
-        creates: '{{ go14root }}/bin/go'
+        creates: '{{ go_boot_root }}/bin/go'
     - name: prepare to install Go
-      git: repo=https://go.googlesource.com/go dest={{ goroot }} version=go1.10.1
+      git: repo=https://go.googlesource.com/go dest={{ goroot }} version=go{{ go_version }}
     - name: install Go
-      shell: ./all.bash
+      shell: |
+        export GOROOT_BOOTSTRAP={{ go_boot_root }}
+        ./all.bash
       args:
         chdir: '{{ goroot }}/src'
         creates: '{{ goroot }}/bin/go'

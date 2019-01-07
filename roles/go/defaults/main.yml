@@ -1,5 +1,8 @@
 ---
 go_dir:    "{{ user_home }}"
+go_version: "1.10.1"
+go_boot_version: "1.8.3"
+go_boot_root:  "{{ go_dir }}/go1.8"
 goroot:    "{{ go_dir }}/go"
 gopath:    "{{ go_dir }}/dev"
-go14root:  "{{ go_dir }}/go1.4"
+go_target_arch: "linux-amd64"

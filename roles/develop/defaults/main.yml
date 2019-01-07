@@ -1,5 +1,5 @@
 ---
 develop_user: "{{ ansible_user }}"
-develop_home: "/home/{{ develop_user }}"
+develop_home: "{{ ansible_user_dir }}"
 develop_dotfiles_repo: https://github.com/masu-mi/dotfiles.git
 develop_set_github_key: no

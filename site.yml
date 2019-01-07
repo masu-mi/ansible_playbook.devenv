@@ -3,7 +3,7 @@
   become: no
   vars:
     - develop_user: "{{ user }}"
-    - user_home: "/home/{{ user }}"
+    - develop_home: "{{ user_home }}"
     - go_dir: "{{ user_home }}"
     - vim_dir: "{{ user_home }}/local"
     - tmux_dir: "{{ user_home }}/local"
@@ -15,6 +15,9 @@
     - set_fact:
         user: "{{ ansible_user }}"
       when: user is not defined
+    - set_fact:
+        user_home: "/home/{{ user }}"
+      when: user_home is not defined
   roles:
     - role: common
     - role: develop

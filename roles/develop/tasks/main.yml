@@ -9,7 +9,7 @@
 - include: main-Darwin.yml
   when: ansible_system == "Darwin"
   become: yes
-  become_user: "{{ ansible_user_id }}"
+  become_user: "{{ develop_user }}"
 - block:
     - name: setup sshconfig
       template:
