@@ -1,8 +1,9 @@
 [all]
-office-trout.local
+localhost
+# office-trout.local
 
 [all:vars]
 user=masumi
 user_home=/Users/masumi
-ansible_connection=ssh
+ansible_connection=local
 go_target_arch=darwin-amd64

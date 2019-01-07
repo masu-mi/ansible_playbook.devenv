@@ -1,15 +1,20 @@
 ---
-- name: Install yum libraries(Redhat) for vim
+- name: Install lua yum libraries for Redhat
   yum: name={{ item }} state=present
   with_items:
     [ lua, lua-devel, luajit, luajit-devel, luarocks ]
   when: ansible_os_family == 'RedHat'
   become: yes
   become_user: root
-- name: Install apt libraries(Ubuntu) for vim
+- name: Install lua apt libraries for Ubuntu
   apt: name={{ item }} state=present
   with_items:
     [ lua5.2, lua5.2-doc, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
   when: ansible_distribution == 'Ubuntu'
   become: yes
   become_user: root
+- name: Install Lua for Darwin
+  homebrew: name={{ item }} state=present
+  with_items:
+    [ lua, luajit, luarocks ]
+  when: ansible_system == "Darwin"

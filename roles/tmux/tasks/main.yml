@@ -10,9 +10,10 @@
     - name: install dependency(Ubuntu)
       apt: name={{ item }} update_cache=yes
       with_items: "{{ tmux_dependent_apt_pkgs[ansible_distribution_major_version] }}"
+      when: ansible_distribution == 'Ubuntu'
   become: yes
   become_user: root
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_system != 'Darwin'
 - name: fetch tmux source
   get_url:
     url: https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz
@@ -29,3 +30,4 @@
   args:
     chdir: /tmp/
     creates: "{{ tmux_dir }}/bin/tmux"
+  when: ansible_system != 'Darwin'

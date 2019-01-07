@@ -22,11 +22,11 @@
     - role: common
     - role: develop
     - role: fzf
-    - role: andrewrothstein.bazel
-      bazel_ver: 0.13.0
-      bazel_checksums:
-        '0.13.0':
-          linux-x86_64: sha256:c90ed6d8478fd543d936702d2eb3ed034f46b2223fac790598db70c161552418
+      # - role: andrewrothstein.bazel
+      #   bazel_ver: 0.13.0
+      #   bazel_checksums:
+      #     '0.13.0':
+      #       linux-x86_64: sha256:c90ed6d8478fd543d936702d2eb3ed034f46b2223fac790598db70c161552418
     - role: rust
       become: yes
       become_user: "{{ user }}"
@@ -37,9 +37,9 @@
     - role: python3
       become: yes
       become_user: "{{ user }}"
-    - role: ctags
-      become: yes
-      become_user: "{{ user }}"
+      # - role: ctags
+      #   become: yes
+      #   become_user: "{{ user }}"
     - role: nodejs
       become: yes
       become_user: "{{ user }}"
@@ -64,6 +64,7 @@
     - role: zaxos.docker-ce-ansible-role
       become: true
       become_user: root
+      when: ansible_system != "Darwin"
     - role: cimon-io.asdf
       asdf_user: "{{ user }}"
       asdf_plugins:
@@ -71,8 +72,9 @@
           versions: ["19.3", "20.2"]
           global: "20.2"
         - name: "elixir"
-          versions: ["1.5.3"]
-          global: "1.5.3"
+          versions: ["1.6.4"]
+          global: "1.6.4"
+      when: ansible_system != "Darwin"
   tasks:
     - name: "make dev-user able to use docker"
       become: true
@@ -81,3 +83,4 @@
         name: "{{ ansible_ssh_user }}"
         groups: "docker"
         append: yes
+      when: ansible_system != "Darwin"

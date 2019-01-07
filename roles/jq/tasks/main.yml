@@ -5,7 +5,7 @@
   when: ansible_system == "Linux"
 - name: Define jq_osarch to Darwin
   set_fact:
-    jq_osarch: "osx-x86_64"
+    jq_osarch: "osx-amd64"
   when: ansible_system == "Darwin"
 - name: Install jq
   get_url:
