@@ -1,6 +1,7 @@
 ---
   pip3_pkgs: [
     setuptools, wheel, twine,
+    pipenv,
     virtualenv, virtualenvwrapper,
     pyflakes3k, mypy, pylint, pep8,
     cookiecutter, aws,
