@@ -12,5 +12,6 @@
       libtool, autoconf, automake, unzip, cmake,
       fakeroot,
       ncurses, binutils,
+      kubectx,
       u-boot-tools,
     ]
