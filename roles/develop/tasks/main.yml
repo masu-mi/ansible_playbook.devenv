@@ -53,11 +53,7 @@
         ]
     - name: dotfiles のlinkを作成する
       file: src={{ develop_home }}/dotfiles/{{ item }} path={{ develop_home }}/{{ item }} state=link
-      with_items: [ .ackrc, .bashrc, .bash_profile, .ctags.d, .gitconfig, .inputrc, .screenrc, .tmux.conf, .vim, .zshrc, .sqliterc ]
-    - name: for nvim
-      file: src={{ develop_home }}/dotfiles/.vim path={{ develop_home }}/.config/nvim state=link
-    - name: for vim
-      file: src={{ develop_home }}/dotfiles/.vim/init.vim path={{ develop_home }}/.vimrc state=link
+      with_items: [ .ackrc, .bashrc, .bash_profile, .ctags.d, .gitconfig, .inputrc, .screenrc, .tmux.conf, .zshrc, .sqliterc ]
     - name: .bash_tokens を作成する(サービストークン用)
       file: path={{ develop_home }}/.bash_tokens state=touch
   become: yes
