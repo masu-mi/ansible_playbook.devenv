@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+  - name: Install basic services
+    apt:
+      name: "{{ package }}"
+      update_cache: yes
+    vars:
+      package: [ ntp ]
+    become: yes
+  - name: Activate sysstat
+    service:
+      name: ntp
+      enabled: yes
+      state: started
+    become: yes

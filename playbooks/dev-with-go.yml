@@ -1,0 +1,51 @@
+---
+- hosts: all
+  vars:
+    _user_home: "{{ ansible_env.HOME }}"
+    _go_boot_version: "{{ go_boot_version | default('1.8.3') }}"
+    _go_boot_root: "{{ _user_home }}/go{{ _go_boot_version }}"
+    _go_target_arch: "{{ go_target_arch | default('linux-amd64') }}"
+    _goroot: "{{ _user_home }}/go"
+    _go_version: "{{ go_version | default('1.15.6') }}"
+    _gopath: "{{ _user_home }}/dev"
+  tasks:
+  - name: "Make directories for '~/dev' as $GOPATH"
+    file:
+      path: "{{ path }}"
+      state: directory
+    vars:
+      path:
+      - "{{ _gopath }}"
+      - "{{ _gopath }}/bin"
+      - "{{ _gopath }}/src"
+  - name: "Create bootstrap go dir (v{{ _go_boot_version }})"
+    file:
+      path: "{{ _go_boot_root }}"
+      state: directory
+  - name: Deploy bootstrap Go
+    shell: |
+      wget -O - https://storage.googleapis.com/golang/go{{ _go_boot_version }}.{{ _go_target_arch }}.tar.gz \
+        | tar -zxvf - --directory={{ _go_boot_root }} --strip-components 1
+    args:
+      creates: '{{ _go_boot_root }}/bin/go'
+  - name: Prepare to install Go
+    git:
+      repo: https://go.googlesource.com/go
+      dest: "{{ _goroot }}"
+      version: "go{{ _go_version }}"
+  - name: Install Go
+    shell: ./all.bash
+    environment:
+      GOROOT_BOOTSTRAP: "{{ _go_boot_root }}"
+    args:
+      chdir: "{{ _goroot }}/src"
+      creates: "{{ _goroot }}/bin/go"
+  - name: Install Go tools
+    shell: "{{ _goroot }}/bin/go get {{ item }}"
+    environment:
+      GOPATH: "{{ _gopath }}"
+    loop:
+    - "github.com/derekparker/delve/cmd/dlv"
+    - "github.com/peco/peco/cmd/peco"
+    - "github.com/motemen/ghq"
+    - "github.com/direnv/direnv"

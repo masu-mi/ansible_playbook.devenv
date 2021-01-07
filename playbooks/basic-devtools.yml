@@ -1,0 +1,101 @@
+---
+- hosts: all
+  vars:
+    _vim_dir: "{{ ansible_env.HOME }}/local"
+    _tmux_dir: "{{ ansible_env.HOME }}/local"
+    _tmux_xpane_dir: "{{ ansible_env.HOME }}/local"
+    _tmux_version: 3.1
+    tmux_dependent_apt_pkgs:
+      '16': [ "libevent-2.0-5", "libevent-dev", "libutf8proc1", "libutf8proc-dev" ]
+      '18': [ "libevent-2.1-6", "libevent-dev", "libutf8proc2", "libutf8proc-dev" ]
+      '20': [
+        "libevent-2.1-7", "libevent-dev", "libutf8proc2", "libutf8proc-dev",
+        "libevent-dev", "ncurses-dev", "build-essential", "bison", "pkg-config"
+      ]
+  tasks:
+  - name: Setup local tool directory
+    file:
+      path: "{{ item }}"
+      state: directory
+      mode: "0755"
+    loop: [
+      "{{ _vim_dir }}",
+      "{{ _vim_dir }}/bin",
+      "{{ _vim_dir }}/lib"
+    ]
+  - name: Install lua apt libraries for Ubuntu (used by Vim)
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop: [ lua5.4, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
+    when: ansible_distribution == 'Ubuntu'
+    become: yes
+  - name: Install apt lib for Vim
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    loop: [ perl-base, perl-modules-5.30, libperl-dev, python3, python3-dev ]
+    become: yes
+  - name: Fetch vim source
+    git:
+      repo: https://github.com/vim/vim.git
+      version: v8.2.2232
+      dest: /tmp/vim.git
+  - name: Install Vim from source
+    shell: |
+      cd /tmp/vim.git
+      ./configure \
+        --prefix={{ _vim_dir }} \
+        --enable-fail-if-missing \
+        --enable-terminal \
+        --enable-fontset --enable-cscope \
+        --enable-perlinterp=dynamic \
+        --enable-luainterp=yes \
+        --with-luajit \
+        --enable-python3interp=dynamic
+        make install
+    when: ansible_distribution == 'Ubuntu'
+    args:
+      chdir: /tmp/vim.git
+      creates: '{{ _vim_dir }}/bin/vim'
+  - name: Install dependencies (Ubuntu)
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+    loop: "{{ tmux_dependent_apt_pkgs[ansible_distribution_major_version] }}"
+    become: yes
+    # when: ansible_system != 'Darwin'
+  - name: Fetch tmux source
+    get_url:
+      url: https://github.com/tmux/tmux/releases/download/{{ _tmux_version }}/tmux-{{ _tmux_version }}.tar.gz
+      dest: "/tmp/tmux-{{ _tmux_version }}.tar.gz"
+  - name: Install tmux
+    shell: |
+      tar xzf ./tmux-{{ _tmux_version }}.tar.gz
+      cd ./tmux-{{ _tmux_version }}
+      ./configure \
+        --prefix={{ _tmux_dir }} \
+        --enable-utf8proc
+      make
+      make install
+    args:
+      chdir: /tmp/
+      creates: "{{ _tmux_dir }}/bin/tmux"
+    when: ansible_system != 'Darwin'
+  - name: fetch tmux-xpanes
+    get_url:
+      url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
+      dest: /tmp/xpanes
+  - name: install tmux-xpanes
+    shell: |
+      install -m 0755 xpanes {{ _tmux_xpane_dir }}/bin/xpanes
+      echo "Ref: https://github.com/greymd/tmux-xpanes"
+    args:
+      chdir: /tmp/
+  - name: Install support tools
+    apt:
+      name: "{{ item }}"
+    loop: [ fzf, tmuxinator, bat, jq, vim, neovim ]
+    become: yes
+  # TODO: Add docker with flag

@@ -1,0 +1,24 @@
+---
+- hosts: all
+  vars:
+    _python_pkgs: "{{ python_pkgs | default(_python_default_pkgs) }}"
+    _python_default_pkgs: [ python3-pip, python3-dev ]
+    _pip_pkgs: [
+      cookiecutter,
+      mypy, pep8, pyflakes3k, pylint,
+      setuptools, wheel, twine,
+      virtualenv, virtualenvwrapper,
+      pipenv, poetry, pip-review,
+    ]
+  tasks:
+  - name: Install Python3
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ _python_pkgs }}"
+    become: yes
+  - name: Install pip3 packages
+    pip:
+      name: "{{ item }}"
+      executable: pip3
+    loop: "{{ _pip_pkgs }}"

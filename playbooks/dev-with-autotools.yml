@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+  - name: "Install packages (Debian)"
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop: [ libtool, autoconf, automake ]
+    become: yes
+    when: ansible_os_family == 'Debian'
+  - name: "Install packages (Darwin)"
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: [ libtool, libtool-bin, autoconf, automake ]
+    become: yes
+    when: ansible_system == "Darwin"

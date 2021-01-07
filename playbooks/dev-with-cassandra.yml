@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+  - name: install ccm
+    pip:
+      name: ccm
