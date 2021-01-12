@@ -19,46 +19,17 @@
         user_home: "/home/{{ user }}"
       when: user_home is not defined
   roles:
-    # - role: common
-      # - role: develop
-      # - role: andrewrothstein.bazel
-      #   bazel_ver: 0.13.0
-      #   bazel_checksums:
-      #     '0.13.0':
-      #       linux-x86_64: sha256:c90ed6d8478fd543d936702d2eb3ed034f46b2223fac790598db70c161552418
-      # - role: rust
-      #   become: yes
-      #   become_user: "{{ user }}"
-      # - role: python3
-      #   become: yes
-      #   become_user: "{{ user }}"
-      ## - role: go
-      ### - role: ruby
-      ###   become: yes
-      ###   become_user: "{{ user }}"
       # - role: ctags
       #   become: yes
       #   become_user: "{{ user }}"
       ### - role: nodejs
       ###   become: yes
       ###   become_user: "{{ user }}"
-      # - role: sdkman
-      #   become: yes
-      #   become_user: "{{ user }}"
       # - role: fzf
       # - role: vim
       #   become: yes
       #   become_user: "{{ user }}"
       # - role: nvim
-      #   become: yes
-      #   become_user: "{{ user }}"
-      # - role: tmux
-      #   become: yes
-      #   become_user: "{{ user }}"
-      # - role: tmux-xpanes
-      #   become: yes
-      #   become_user: "{{ user }}"
-      # - role: jq
       #   become: yes
       #   become_user: "{{ user }}"
     - role: zaxos.docker-ce-ansible-role

@@ -59,13 +59,13 @@
     args:
       chdir: /tmp/vim.git
       creates: '{{ _vim_dir }}/bin/vim'
-  - name: Install dependencies (Ubuntu)
+  - name: Install dependencies (tmux from source in Linux)
     apt:
       name: "{{ item }}"
       update_cache: yes
     loop: "{{ tmux_dependent_apt_pkgs[ansible_distribution_major_version] }}"
     become: yes
-    # when: ansible_system != 'Darwin'
+    when: ansible_system != 'Darwin'
   - name: Fetch tmux source
     get_url:
       url: https://github.com/tmux/tmux/releases/download/{{ _tmux_version }}/tmux-{{ _tmux_version }}.tar.gz
@@ -87,15 +87,24 @@
     get_url:
       url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
       dest: /tmp/xpanes
+    when: ansible_distribution == 'Ubuntu'
   - name: install tmux-xpanes
     shell: |
       install -m 0755 xpanes {{ _tmux_xpane_dir }}/bin/xpanes
       echo "Ref: https://github.com/greymd/tmux-xpanes"
     args:
       chdir: /tmp/
+    when: ansible_distribution == 'Ubuntu'
   - name: Install support tools
     apt:
       name: "{{ item }}"
-    loop: [ fzf, tmuxinator, bat, jq, vim, neovim ]
+    loop: [ fzf, tmux, tmuxinator, bat, jq, vim, neovim, exuberant-ctags, global ]
+    when: ansible_distribution == 'Ubuntu'
+    become: yes
+  - name: Install support tools
+    homebrew:
+      name: "{{ item }}"
+    loop: [ fzf, tmux, tmuxinator, tmux-xpanes, bat, jq, vim, neovim, ctags, global ]
+    when: ansible_system == 'Darwin'
     become: yes
   # TODO: Add docker with flag
