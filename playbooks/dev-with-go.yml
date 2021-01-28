@@ -46,6 +46,4 @@
       GOPATH: "{{ _gopath }}"
     loop:
     - "github.com/derekparker/delve/cmd/dlv"
-    - "github.com/peco/peco/cmd/peco"
-    - "github.com/motemen/ghq"
-    - "github.com/direnv/direnv"
+    - "github.com/motemen/ghq" # TODO move to basic-devtools
