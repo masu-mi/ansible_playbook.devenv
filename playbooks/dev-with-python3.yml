@@ -22,3 +22,8 @@
       name: "{{ item }}"
       executable: pip3
     loop: "{{ _pip_pkgs }}"
+  - name: Install poetry with recomended process
+    shell: |
+      curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | \
+      python --yes --no-modify-path
+

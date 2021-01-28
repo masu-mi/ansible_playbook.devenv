@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+  - name: "Install packages (Debian)"
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop: [ libpcap0.8, libpcap-dev, "linux-tools-{{ ansible_kernel }}" ]
+    become: yes
+    when: ansible_os_family == 'Debian'
