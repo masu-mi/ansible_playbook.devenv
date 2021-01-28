@@ -5,6 +5,6 @@
     apt:
       name: "{{ item }}"
       state: present
-    loop: [ libpcap0.8, libpcap-dev, "linux-tools-{{ ansible_kernel }}" ]
+    loop: [ libpcap0.8, libpcap-dev, "linux-tools-{{ ansible_kernel }}", trace-cmd, kernelshark, traceshark ]
     become: yes
     when: ansible_os_family == 'Debian'
