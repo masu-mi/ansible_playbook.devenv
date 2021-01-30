@@ -1,5 +1,6 @@
 [all]
-test-k3s
+default
+# test-k3s
 
 [all:vars]
 ansible_connection = ssh

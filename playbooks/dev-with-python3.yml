@@ -25,5 +25,5 @@
   - name: Install poetry with recomended process
     shell: |
       curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | \
-      python --yes --no-modify-path
+      python /dev/stdin --yes --no-modify-path
 
