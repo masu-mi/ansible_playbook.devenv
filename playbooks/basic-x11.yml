@@ -16,9 +16,12 @@
           regexp: '^#\s+({{ item }}\s+.*)$'
           replace: '\g<1>'
         loop: [ 'X11Forwarding\s+yes', 'X11DisplayOffset\s+10', 'X11UseLocalhost\s+no' ]
-        # notify: # BROKEN now..
-        #   - restart_sshd
+        notify:
+        - restart_sshd
   handlers:
   - name: restart_sshd
-    listen: restart_sshd
-    import_tasks: ../handlers/main.yml
+    service:
+      name: ssh
+      state: restarted
+    async: 1
+    become: true
