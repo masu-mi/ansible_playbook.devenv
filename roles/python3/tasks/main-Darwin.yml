@@ -1,6 +1,0 @@
----
-- name: install python3 and pip3
-  homebrew:
-    name: python3
-    #   become: yes
-    #   become_user: root

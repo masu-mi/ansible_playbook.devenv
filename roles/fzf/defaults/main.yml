@@ -1,4 +1,0 @@
----
-fzf_dir: "/{{ ansible_user_dir }}/.fzf"
-fzf_branch: "master"
-# defaults file for fzf

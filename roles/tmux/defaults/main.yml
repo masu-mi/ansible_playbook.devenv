@@ -1,7 +1,0 @@
----
-tmux_version: 2.6
-tmux_dir: "/home/{{ ansible_user }}/local"
-tmux_dependent_apt_pkgs:
-  '16': [ "libevent-2.0-5", "libevent-dev", "libutf8proc1", "libutf8proc-dev" ]
-  '18': [ "libevent-2.1-6", "libevent-dev", "libutf8proc2", "libutf8proc-dev" ]
-# defaults file for tmux
