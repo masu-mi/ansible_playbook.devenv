@@ -10,7 +10,8 @@
       gcc-multilib, chrpath, socat, xterm, lzop, kmod, libsdl1.2-dev,
       build-essential, flex, libelf-dev, libncurses5-dev
     ]
-    _pkg_for_libbpf: [ llvm, clang, gcc-bpf, libbpf-dev ]
+    # _pkg_for_libbpf: [ llvm, clang, gcc-bpf, libbpf-dev ]
+    _pkg_for_libbpf: [ llvm, clang, libbpf-dev ]
     _pkg_for_toolsbpf: [ bison, flex, libelf1, binutils-dev, libreadline-dev ]
     _pkg_for_bcc: [
       libbpfcc, libbpfcc-dev,

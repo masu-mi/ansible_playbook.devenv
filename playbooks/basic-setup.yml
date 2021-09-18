@@ -1,16 +1,22 @@
 ---
 - hosts: all
   tasks:
+  - name: update apt cache
+    apt:
+      update_cache: yes
+      upgrade: dist
+      force: yes
+    become: yes
   - name: Install basic services
     apt:
       name: "{{ package }}"
-      update_cache: yes
+      state: absent
     vars:
-      package: [ ntp ]
+      package: [ ntp, chrony ]
     become: yes
-  - name: Activate sysstat
-    service:
-      name: ntp
+  - name: Enable systemd-timesyncd
+    systemd:
+      name: systemd-timesyncd.service
       enabled: yes
-      state: started
+      daemon_reload: yes
     become: yes
