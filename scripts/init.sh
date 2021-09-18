@@ -12,4 +12,4 @@ if !(type "poetry" > /dev/null 2>&1); then
     | $PYTHON /dev/stdin --yes --no-modify-path
 fi
 
-poetry install
+$HOME/.poetry/bin/poetry install
