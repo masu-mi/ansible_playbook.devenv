@@ -26,6 +26,27 @@
       "{{ _vim_dir }}/bin",
       "{{ _vim_dir }}/lib"
     ]
+  - name: install neovim
+    github_asset:
+      repository: "neovim/neovim"
+      asset_name: "nvim-linux64.tar.gz"
+      tag: "v0.5.0"
+      dest: "/tmp/"
+  - name: install neovim| downlaod asset
+    unarchive:
+      src: "/tmp/nvim-linux64.tar.gz"
+      dest: "{{ ansible_env.HOME }}/local"
+      remote_src: yes
+  - name: install neovim| rename dir
+    copy:
+      src: "{{ ansible_env.HOME }}/local/nvim-linux64/{{ item }}"
+      dest: "{{ ansible_env.HOME }}/local/nvim"
+      remote_src: yes
+    loop: ["bin", "share"]
+  - name: install neovim| remove tmp dir
+    file:
+      path: "{{ ansible_env.HOME }}/local/nvim-linux64"
+      state: absent
     # - name: Install lua apt libraries for Ubuntu (used by Vim)
     #   apt:
     #     name: "{{ item }}"
