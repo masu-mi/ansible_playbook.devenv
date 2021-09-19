@@ -1,0 +1,25 @@
+---
+- hosts: all
+  vars:
+    _user_home: "{{ ansible_env.HOME }}"
+    nodejs_versions: [ "14.17.6", "16.9.1" ]
+    nodejs_used_version: "14.17.6"
+    deno_version: "1.13.2"
+  tasks:
+  - name: install nodebrew
+    shell: |
+      curl -L git.io/nodebrew | perl - setup
+    args:
+      creates: "{{ _user_home }}/.nodebrew/current/bin/nodebrew"
+  - name: install nodejs
+    shell: |
+      {{ _user_home }}/.nodebrew/current/bin/nodebrew install {{ item }} | cat
+    with_items: "{{ nodejs_versions }}"
+  - name: install nodejs
+    shell: |
+      {{ _user_home }}/.nodebrew/current/bin/nodebrew use v{{ nodejs_used_version }} | cat
+
+  - name: install deno
+    shell: |
+      curl -fsSL https://deno.land/x/install/install.sh | sh /dev/stdin "v{{ deno_version }}"
+

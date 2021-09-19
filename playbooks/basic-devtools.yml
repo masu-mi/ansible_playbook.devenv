@@ -80,14 +80,14 @@
     apt:
       name: "{{ item }}"
     # loop: [ peco, direnv, fzf, tmux, tmuxinator, bat, jq, vim, neovim, exuberant-ctags, global ]
-    loop: [ peco, direnv, fzf, tmux, tmuxinator, jq, vim, exuberant-ctags, global ]
+    loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, jq, vim, exuberant-ctags, global ]
     # when: ansible_distribution == 'Ubuntu'
     when: ansible_os_family == 'Debian'
     become: yes
   - name: Install support tools
     homebrew:
       name: "{{ item }}"
-    loop: [ peco, direnv, fzf, tmux, tmuxinator, tmux-xpanes, bat, jq, vim, ctags, global ]
+    loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, tmux-xpanes, bat, jq, vim, ctags, global ]
     when: ansible_system == 'Darwin'
     become: yes
   # TODO: Add docker with flag
