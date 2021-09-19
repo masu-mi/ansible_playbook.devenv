@@ -8,7 +8,7 @@
       mypy, pep8, pyflakes3k, pylint,
       setuptools, wheel, twine,
       virtualenv, virtualenvwrapper,
-      pipenv, poetry, pip-review,
+      pipenv, pip-review,
     ]
   tasks:
   - name: Install Python3
@@ -25,5 +25,5 @@
   - name: Install poetry with recomended process
     shell: |
       curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | \
-      python /dev/stdin --yes --no-modify-path
+      python3 /dev/stdin --yes --no-modify-path
 
