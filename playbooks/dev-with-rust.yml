@@ -1,8 +1,9 @@
 ---
 - hosts: all
   vars:
-    _rust_packages: "{{ rust_packages | default(_rust_default_packages) }}"
+    _rust_packages: "{{ rust_packages | default(_rust_default_packages + _rust_wasm_packages) }}"
     _rust_default_packages: [ 'rustfmt', 'cargo-edit', 'cargo-generate' ]
+    _rust_wasm_packages: [ 'wasm-pack' ]
     _rust_nigtly_packages: [ racer ]
     _user_home: "{{ ansible_env.HOME }}"
   tasks:
