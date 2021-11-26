@@ -20,8 +20,9 @@
     command: "sh /tmp/rustup.sh -y --no-modify-path"
     args:
       creates: "{{ _user_home }}/.cargo/bin/rustup"
-  - name: Install nightly toolchain
-    command: "{{ _user_home }}/.cargo/bin/rustup install nightly"
+  - name: Install current toolchain
+    command: "{{ _user_home }}/.cargo/bin/rustup install {{ item }}"
+    loop: [ nightly, stable ]
   - name: Set restup default stable
     command: "{{ _user_home }}/.cargo/bin/rustup default stable"
   - name: Set component add rust-src
