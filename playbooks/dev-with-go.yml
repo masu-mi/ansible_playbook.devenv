@@ -6,7 +6,7 @@
     _go_boot_root: "{{ _user_home }}/go{{ _go_boot_version }}"
     _go_target_arch: "{{ go_target_arch | default('linux-amd64') }}"
     _goroot: "{{ _user_home }}/go"
-    _go_version: "{{ go_version | default('1.17') }}"
+    _go_version: "{{ go_version | default('1.17.6') }}"
     _gopath: "{{ _user_home }}/dev"
   tasks:
   - name: "Make directories for '~/dev' as $GOPATH"
@@ -33,9 +33,11 @@
       repo: https://go.googlesource.com/go
       dest: "{{ _goroot }}"
       version: "go{{ _go_version }}"
-      depth: 1
+      # depth: 1
   - name: Install Go
-    shell: ./all.bash
+    shell: . ./all.bash
+    environment:
+      GOROOT: "{{ _goroot }}"
     environment:
       GOROOT_BOOTSTRAP: "{{ _go_boot_root }}"
     args:
