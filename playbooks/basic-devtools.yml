@@ -32,21 +32,25 @@
       asset_name: "nvim-linux64.tar.gz"
       tag: "v0.6.1"
       dest: "/tmp/"
+    when: ansible_distribution == 'Ubuntu'
   - name: install neovim| downlaod asset
     unarchive:
       src: "/tmp/nvim-linux64.tar.gz"
       dest: "{{ ansible_env.HOME }}/local"
       remote_src: yes
+    when: ansible_distribution == 'Ubuntu'
   - name: install neovim| rename dir
     copy:
       src: "{{ ansible_env.HOME }}/local/nvim-linux64/{{ item }}"
       dest: "{{ ansible_env.HOME }}/local/nvim"
       remote_src: yes
     loop: ["bin", "share"]
+    when: ansible_distribution == 'Ubuntu'
   - name: install neovim| remove tmp dir
     file:
       path: "{{ ansible_env.HOME }}/local/nvim-linux64"
       state: absent
+    when: ansible_distribution == 'Ubuntu'
     # - name: Install lua apt libraries for Ubuntu (used by Vim)
     #   apt:
     #     name: "{{ item }}"
@@ -110,5 +114,4 @@
       name: "{{ item }}"
     loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, tmux-xpanes, bat, jq, vim, ctags, global ]
     when: ansible_system == 'Darwin'
-    become: yes
   # TODO: Add docker with flag
