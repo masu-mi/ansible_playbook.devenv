@@ -10,7 +10,7 @@ python = "^3.8"
 certifi = "^2021.5.30"
 
 [tool.poetry.dev-dependencies]
-ansible = "^2.10.6"
+ansible = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
