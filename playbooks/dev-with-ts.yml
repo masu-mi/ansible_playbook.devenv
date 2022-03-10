@@ -2,9 +2,9 @@
 - hosts: all
   vars:
     _user_home: "{{ ansible_env.HOME }}"
-    nodejs_versions: [ "14.17.6", "16.9.1" ]
-    nodejs_used_version: "14.17.6"
-    deno_version: "1.13.2"
+    nodejs_versions: [ "16.14.0", "17.7.0" ]
+    nodejs_used_version: "16.14.0"
+    deno_version: "1.19.3"
   tasks:
   - name: install nodebrew
     shell: |
