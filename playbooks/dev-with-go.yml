@@ -6,7 +6,7 @@
     _go_boot_root: "{{ _user_home }}/go{{ _go_boot_version }}"
     _go_target_arch: "{{ go_target_arch | default('linux-amd64') }}"
     _goroot: "{{ _user_home }}/go"
-    _go_version: "{{ go_version | default('1.17.6') }}"
+    _go_version: "{{ go_version | default('1.18') }}"
     _gopath: "{{ _user_home }}/dev"
   tasks:
   - name: "Make directories for '~/dev' as $GOPATH"
@@ -33,7 +33,15 @@
       repo: https://go.googlesource.com/go
       dest: "{{ _goroot }}"
       version: "go{{ _go_version }}"
-      # depth: 1
+    register: go_prepare
+  - name: debug message
+    ansible.builtin.debug:
+      var: go_prepare
+  - name: remove_old_version
+    file:
+      path: "{{ _goroot }}/bin/go"
+      state: absent
+    when: go_prepare.changed
   - name: Install Go
     shell: . ./all.bash
     environment:
@@ -44,10 +52,14 @@
       chdir: "{{ _goroot }}/src"
       creates: "{{ _goroot }}/bin/go"
   - name: Install Go tools
-    shell: "{{ _goroot }}/bin/go get {{ item }}"
+    shell: "{{ _goroot }}/bin/go install {{ item }}"
     environment:
       GOPATH: "{{ _gopath }}"
     loop:
-    - "github.com/go-delve/delve/cmd/dlv"
-    - "github.com/kyoh86/richgo"
-    - "github.com/x-motemen/ghq" # TODO move to basic-devtools
+    - "github.com/goreleaser/goreleaser@latest"
+    - "github.com/google/ko@latest"
+    - "github.com/kyoh86/richgo@latest"
+    - "github.com/go-delve/delve/cmd/dlv@latest"
+    - "github.com/xo/xo@latest"
+    - "github.com/x-motemen/ghq@latest" # TODO move to basic-devtools
+    - "github.com/ktr0731/evans@latest"
