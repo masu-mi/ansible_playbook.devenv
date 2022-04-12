@@ -58,6 +58,7 @@
     loop:
     - "github.com/goreleaser/goreleaser@latest"
     - "github.com/google/ko@latest"
+    - "github.com/nektos/act@latest"
     - "github.com/kyoh86/richgo@latest"
     - "github.com/go-delve/delve/cmd/dlv@latest"
     - "github.com/xo/xo@latest"
