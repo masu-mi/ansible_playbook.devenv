@@ -32,25 +32,25 @@
       asset_name: "nvim-linux64.tar.gz"
       tag: "v0.6.1"
       dest: "/tmp/"
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
   - name: install neovim| downlaod asset
     unarchive:
       src: "/tmp/nvim-linux64.tar.gz"
       dest: "{{ ansible_env.HOME }}/local"
       remote_src: yes
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
   - name: install neovim| rename dir
     copy:
       src: "{{ ansible_env.HOME }}/local/nvim-linux64/{{ item }}"
       dest: "{{ ansible_env.HOME }}/local/nvim"
       remote_src: yes
     loop: ["bin", "share"]
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
   - name: install neovim| remove tmp dir
     file:
       path: "{{ ansible_env.HOME }}/local/nvim-linux64"
       state: absent
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
     # - name: Install lua apt libraries for Ubuntu (used by Vim)
     #   apt:
     #     name: "{{ item }}"
@@ -93,18 +93,18 @@
     get_url:
       url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
       dest: /tmp/xpanes
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
   - name: install tmux-xpanes
     shell: |
       install -m 0755 xpanes {{ _tmux_xpane_dir }}/bin/xpanes
       echo "Ref: https://github.com/greymd/tmux-xpanes"
     args:
       chdir: /tmp/
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_system == 'Linux'
   - name: Install support tools
     apt:
       name: "{{ item }}"
-    # loop: [ peco, direnv, fzf, tmux, tmuxinator, bat, jq, vim, neovim, exuberant-ctags, global ]
+    # loop: [ peco, direnv, fzf, tmux, tmuxinator, bat, jq, vim, exuberant-ctags, global ]
     loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, jq, vim, exuberant-ctags, global ]
     # when: ansible_distribution == 'Ubuntu'
     when: ansible_os_family == 'Debian'
