@@ -1,0 +1,10 @@
+---
+_rust_packages: "{{ rust_packages | default(_rust_default_packages + _rust_wasm_packages) }}"
+_rust_default_packages: [
+  'rustfmt', 'cargo-edit', 'cargo-generate',
+  'cargo-outdated', 'cargo-release', 'cargo-watch',
+  'cargo-audit', 'cargo-crev',
+]
+_rust_wasm_packages: [ 'wasm-pack' ]
+_rust_nigtly_packages: [ racer ]
+_user_home: "{{ ansible_env.HOME }}"

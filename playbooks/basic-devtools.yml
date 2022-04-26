@@ -56,5 +56,5 @@
     #     creates: '{{ _vim_dir }}/bin/vim'
   roles:
     - ansible_appliable
-    - neovim
     - dev_utils
+    - neovim

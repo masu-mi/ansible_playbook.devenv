@@ -1,0 +1,52 @@
+---
+- name: "Make directories for '~/dev' as $GOPATH"
+  file:
+    path: "{{ path }}"
+    state: directory
+  vars:
+    path:
+    - "{{ devcore_go_gopath }}"
+    - "{{ devcore_go_gopath }}/bin"
+    - "{{ devcore_go_gopath }}/src"
+- name: "Create bootstrap go dir (v{{ devcore_go_boot_version }})"
+  file:
+    path: "{{ devcore_go_boot_root }}"
+    state: directory
+- name: Deploy bootstrap Go
+  shell: |
+    wget -O - https://storage.googleapis.com/golang/go{{ devcore_go_boot_version }}.{{ devcore_go_target_arch }}.tar.gz \
+      | tar -zxvf - --directory={{ devcore_go_boot_root }} --strip-components 1
+  args:
+    creates: '{{ devcore_go_boot_root }}/bin/go'
+- name: Prepare to install Go
+  git:
+    repo: https://go.googlesource.com/go
+    dest: "{{ devcore_go_goroot }}"
+    version: "go{{ devcore_go_version }}"
+  register: go_prepare
+- name: debug message
+  ansible.builtin.debug:
+    var: go_prepare
+- name: remove_old_version
+  file:
+    path: "{{ devcore_go_goroot }}/bin/go"
+    state: absent
+  when: go_prepare.changed
+- name: Install Go
+  shell: . ./all.bash
+  environment:
+    GOROOT: "{{ devcore_go_goroot }}"
+    GOROOT_BOOTSTRAP: "{{ devcore_go_boot_root }}"
+  args:
+    chdir: "{{ devcore_go_goroot }}/src"
+    creates: "{{ devcore_go_goroot }}/bin/go"
+- name: Install Go tools
+  shell: "{{ devcore_go_goroot }}/bin/go install {{ item }}"
+  environment:
+    GOPATH: "{{ devcore_go_gopath }}"
+  loop:
+  - "github.com/goreleaser/goreleaser@latest"
+  - "github.com/google/ko@latest"
+  - "github.com/kyoh86/richgo@latest"
+  - "github.com/go-delve/delve/cmd/dlv@latest"
+  - "github.com/xo/xo@latest"

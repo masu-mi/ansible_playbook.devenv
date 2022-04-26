@@ -1,0 +1,7 @@
+---
+- name:
+  shell: "{{ devcore_go_goroot }}/bin/go install {{ item }}"
+  environment:
+    GOPATH: "{{ devcore_go_gopath }}"
+  loop:
+  - "github.com/ktr0731/evans@latest"

@@ -1,27 +1,37 @@
 ---
-- name: fetch tmux-xpanes
-  get_url:
-    url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
-    dest: /tmp/xpanes
+- name: install tools
   when: ansible_system == 'Linux'
-- name: install tmux-xpanes
-  shell: |
-    install -m 0755 xpanes {{ utils_tmux_xpane_dir }}/bin/xpanes
-    echo "Ref: https://github.com/greymd/tmux-xpanes"
-  args:
-    chdir: /tmp/
-  when: ansible_system == 'Linux'
-- name: Install support tools
-  apt:
-    name: "{{ item }}"
-  # loop: [ peco, direnv, fzf, tmux, tmuxinator, bat, jq, vim, exuberant-ctags, global ]
-  loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, jq, vim, exuberant-ctags, global ]
-  # when: ansible_distribution == 'Ubuntu'
-  when: ansible_os_family == 'Debian'
-  become: yes
+  block:
+  - name: Install support tools
+    apt:
+      name: "{{ item }}"
+    loop: [ peco, direnv, fzf, tmux, tmuxinator, bat, jq, vim, exuberant-ctags, global ]
+    when: ansible_distribution == 'Ubuntu'
+    become: yes
+  - name: Install support tools
+    apt:
+      name: "{{ item }}"
+    loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, jq, vim, exuberant-ctags, global ]
+    when: ansible_distribution == 'Debian'
+    become: yes
+  - name: fetch tmux-xpanes
+    get_url:
+      url: https://raw.githubusercontent.com/greymd/tmux-xpanes/master/bin/xpanes
+      dest: /tmp/xpanes
+  - name: install tmux-xpanes
+    shell: |
+      install -m 0755 xpanes {{ utils_tmux_xpane_dir }}/bin/xpanes
+      echo "Ref: https://github.com/greymd/tmux-xpanes"
+    args:
+      chdir: /tmp/
 - name: Install support tools
   homebrew:
     name: "{{ item }}"
   loop: [ curl, peco, direnv, fzf, tmux, tmuxinator, tmux-xpanes, bat, jq, vim, ctags, global ]
   when: ansible_system == 'Darwin'
-# tasks file for dev_utils
+- name: Install ghq
+  shell: "{{ devcore_go_goroot }}/bin/go install {{ item }}"
+  environment:
+    GOPATH: "{{ devcore_go_gopath }}"
+  loop:
+  - "github.com/x-motemen/ghq@latest"
