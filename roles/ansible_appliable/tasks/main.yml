@@ -1,0 +1,6 @@
+---
+- name: install depended tools
+  homebrew:
+    name: "{{ item }}"
+  loop: [ gnu-tar ]
+  when: ansible_system == 'Darwin'

@@ -1,0 +1,13 @@
+---
+__neovim_asset_name: "nvim-{{ __neovim_suffix[ansible_system][ansible_architecture] }}"
+__neovim_suffix:
+  "Linux":
+    "x86_64": "linux64"
+  "Darwin":
+    "x86_64": "macos"
+__neovim_unpacked_name: "nvim-{{ __neovim_unpacked_suffix[ansible_system][ansible_architecture] }}"
+__neovim_unpacked_suffix:
+  "Linux":
+    "x86_64": "linux64"
+  "Darwin":
+    "x86_64": "osx64"

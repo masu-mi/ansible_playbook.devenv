@@ -1,0 +1,9 @@
+---
+utils_tmux_xpane_dir: "{{ ansible_env.HOME }}/local"
+# tmux_dependent_apt_pkgs:
+#   '16': [ "libevent-2.0-5", "libevent-dev", "libutf8proc1", "libutf8proc-dev" ]
+#   '18': [ "libevent-2.1-6", "libevent-dev", "libutf8proc2", "libutf8proc-dev" ]
+#   '20': [
+#     "libevent-2.1-7", "libevent-dev", "libutf8proc2", "libutf8proc-dev",
+#     "libevent-dev", "ncurses-dev", "build-essential", "bison", "pkg-config"
+#   ]

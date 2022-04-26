@@ -1,0 +1,23 @@
+---
+- name: download asset
+  github_asset:
+    repository: "{{ neovim_repository }}"
+    asset_name: "{{ __neovim_asset_name }}.tar.gz"
+    tag: "{{ neovim_tag }}"
+    dest: "/tmp/"
+- name: unarchive neovim
+  unarchive:
+    src: "/tmp/{{ __neovim_asset_name }}.tar.gz"
+    dest: "/tmp/"
+    remote_src: yes
+- name: install neovim
+  copy:
+    dest: "{{ ansible_env.HOME }}/local/nvim"
+    src: "/tmp/{{ __neovim_unpacked_name }}/{{ item }}"
+    remote_src: yes
+  loop: ["bin", "share"]
+- name: cleanup
+  file:
+    path: "/tmp/{{ __neovim_unpacked_name }}"
+    state: absent
+  loop: [ "{{ __neovim_unpacked_name }}", "{{ __neovim_asset_name }}.tar.gz" ]
