@@ -1,0 +1,16 @@
+---
+- name: make host measurable
+  when: ansible_os_family == 'Debian'
+  become: yes
+  block:
+  - name: Install basic monitoring tools
+    apt:
+      name: "{{ package }}"
+      update_cache: yes
+    vars:
+      package: [ sysstat, dstat ]
+  - name: Activate sysstat
+    service:
+      name: sysstat
+      enabled: yes
+      state: started

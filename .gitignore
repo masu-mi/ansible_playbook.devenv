@@ -2,3 +2,4 @@ site.retry
 *id_rsa*
 *.DS_Store
 inventories/priv.*
+roles/*/.travis.yml

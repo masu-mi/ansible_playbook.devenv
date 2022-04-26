@@ -1,16 +1,4 @@
 ---
 - hosts: all
-  tasks:
-  - name: Install basic monitoring tools
-    apt:
-      name: "{{ package }}"
-      update_cache: yes
-    vars:
-      package: [ sysstat, dstat ]
-    become: yes
-  - name: Activate sysstat
-    service:
-      name: sysstat
-      enabled: yes
-      state: started
-    become: yes
+  roles:
+    - measurable
