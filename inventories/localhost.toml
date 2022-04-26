@@ -1,6 +1,5 @@
 [all]
 localhost
-# office-trout.local
 
 [all:vars]
 ansible_connection=local

@@ -1,7 +1,8 @@
 [all]
+deb0
 default
-# test-k3s
+test-k3s
 
 [all:vars]
-ansible_connection = ssh
 user=vagrant
+ansible_connection = ssh
