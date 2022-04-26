@@ -1,0 +1,3 @@
+---
+- import_tasks: install-sdkman.yml
+- import_tasks: install-sdk.yml

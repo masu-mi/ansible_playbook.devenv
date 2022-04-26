@@ -1,0 +1,16 @@
+---
+# - name: Install depended package
+#   apt:
+#     name: zip
+#     update_cache: yes
+#   become: yes
+#   when: ansible_os_family == 'Debian'
+- name: Fetch sdkman installer
+  get_url:
+    url: "https://get.sdkman.io"
+    dest: "/tmp/sdkman_installer.sh"
+    mode: 0755
+- name: Install sdkman
+  shell: "/tmp/sdkman_installer.sh"
+  args:
+    creates: "{{ devcore_jvm_home }}/.sdkman/bin/sdkman-init.sh"

@@ -1,0 +1,15 @@
+---
+- name: "install dev tools for eBPF/XDP"
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: [ libpcap0.8, libpcap-dev, "linux-tools-{{ ansible_kernel }}", trace-cmd, kernelshark, traceshark ]
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
+- name: "install dev tools for eBPF/XDP"
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: [ libpcap0.8, libpcap-dev, "linux-perf", trace-cmd, kernelshark, traceshark ]
+  become: yes
+  when: ansible_distribution == 'Debian'

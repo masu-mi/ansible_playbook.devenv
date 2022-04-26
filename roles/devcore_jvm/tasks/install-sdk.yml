@@ -1,0 +1,8 @@
+---
+- name: Install SDKs
+  shell: |
+    . "{{ devcore_jvm_home }}/.sdkman/bin/sdkman-init.sh"
+    sdk install {{ item }}
+  args:
+    executable: /bin/bash
+  loop: "{{ devcore_jvm_sdks }}"

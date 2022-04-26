@@ -1,0 +1,3 @@
+---
+devcore_jvm_sdks: [ "java", "kotlin", "leiningen", "gradle", "groovy" ]
+devcore_jvm_home: "{{ ansible_env.HOME }}"
