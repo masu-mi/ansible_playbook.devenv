@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - debug_network
+    - devcore_elixir

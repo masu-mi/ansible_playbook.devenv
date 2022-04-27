@@ -1,0 +1,8 @@
+---
+- name: install pkgs (qemu, ..) for debug
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ debug_vm_pkgs }}"
+  become: yes
+  when: ansible_os_family == 'Debian'

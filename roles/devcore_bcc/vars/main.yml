@@ -1,0 +1,6 @@
+---
+devcore_bcc_pkg: [
+  libbpfcc, libbpfcc-dev,
+  bpfcc-tools, python3-bpfcc, bpfcc-lua,
+  bpftrace
+]

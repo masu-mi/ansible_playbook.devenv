@@ -1,0 +1,8 @@
+---
+- name: install pkgs for kernel build
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ devcore_linux_kernel_pkgs }}"
+  become: yes
+  when: ansible_os_family == 'Debian'

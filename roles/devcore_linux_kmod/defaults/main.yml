@@ -1,0 +1,5 @@
+---
+devcore_linux_kmod_pkgs: [
+  build-essential, bc, bison, flex, libssl-dev,
+  libelf-dev, libssl-dev, libncurses5-dev
+]

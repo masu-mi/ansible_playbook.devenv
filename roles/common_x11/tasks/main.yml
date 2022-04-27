@@ -1,0 +1,18 @@
+---
+- name: "Activate locales"
+  become: yes
+  when: ansible_os_family == 'Debian'
+  block:
+    - name: "Install X11 packages"
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: [ xserver-xorg, x11-apps ]
+    - name: "Activate X11Forwarding"
+      replace:
+        path: "/etc/ssh/sshd_config"
+        regexp: '^#\s+({{ item }}\s+.*)$'
+        replace: '\g<1>'
+      loop: [ 'X11Forwarding\s+yes', 'X11DisplayOffset\s+10', 'X11UseLocalhost\s+no' ]
+      notify:
+      - restart_sshd

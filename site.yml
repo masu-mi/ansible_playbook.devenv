@@ -2,22 +2,7 @@
 - hosts: all
   become: no
   vars:
-    - develop_user: "{{ user }}"
-    - develop_home: "{{ user_home }}"
-    - go_dir: "{{ user_home }}"
-    - vim_dir: "{{ user_home }}/local"
-    - tmux_dir: "{{ user_home }}/local"
-    - tmux_xpane_dir: "{{ user_home }}/local"
-    - jq_dir: "{{ user_home }}/local"
-    - ctags_dir: "{{ user_home }}/local"
     - develop_set_github_key: yes
-  pre_tasks:
-    - set_fact:
-        user: "{{ ansible_user }}"
-      when: user is not defined
-    - set_fact:
-        user_home: "/home/{{ user }}"
-      when: user_home is not defined
   roles:
       # - role: ctags
       #   become: yes
@@ -35,16 +20,6 @@
     - role: zaxos.docker-ce-ansible-role
       become: true
       become_user: root
-      when: ansible_system != "Darwin"
-    - role: cimon-io.asdf
-      asdf_user: "{{ user }}"
-      asdf_plugins:
-        - name: "erlang"
-          versions: ["19.3", "20.2"]
-          global: "20.2"
-        - name: "elixir"
-          versions: ["1.6.4"]
-          global: "1.6.4"
       when: ansible_system != "Darwin"
   tasks:
     - name: "make dev-user able to use docker"

@@ -1,0 +1,2 @@
+---
+debug_vm_pkgs: [ qemu, qemu-system, qemu-utils ]

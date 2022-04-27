@@ -1,0 +1,8 @@
+---
+- name: Install pkgs for libbpf
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ devcore_libbpf_pkg }}"
+  become: yes
+  when: ansible_os_family == 'Debian'

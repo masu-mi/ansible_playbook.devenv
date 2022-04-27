@@ -1,22 +1,4 @@
 ---
 - hosts: all
-  tasks:
-  - name: update apt cache
-    apt:
-      update_cache: yes
-      upgrade: dist
-      force: yes
-    become: yes
-  - name: Install basic services
-    apt:
-      name: "{{ package }}"
-      state: absent
-    vars:
-      package: [ ntp, chrony ]
-    become: yes
-  - name: Enable systemd-timesyncd
-    systemd:
-      name: systemd-timesyncd.service
-      enabled: yes
-      daemon_reload: yes
-    become: yes
+  roles:
+    - common_timesyncd

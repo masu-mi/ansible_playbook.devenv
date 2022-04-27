@@ -1,21 +1,9 @@
 ---
 - hosts: all
   vars:
-    _vim_dir: "{{ ansible_env.HOME }}/local"
     vim_dependent_pkgs:
       '20': [ lua5.3, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
       '21': [ lua5.4, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
-  tasks:
-  - name: Setup local tool directory
-    file:
-      path: "{{ item }}"
-      state: directory
-      mode: "0755"
-    loop: [
-      "{{ _vim_dir }}",
-      "{{ _vim_dir }}/bin",
-      "{{ _vim_dir }}/lib"
-    ]
     # - name: Install lua apt libraries for Ubuntu (used by Vim)
     #   apt:
     #     name: "{{ item }}"
@@ -55,6 +43,6 @@
     #     chdir: /tmp/vim.git
     #     creates: '{{ _vim_dir }}/bin/vim'
   roles:
-    - ansible_appliable
+    - common_ansible_appliable
     - dev_utils
     - neovim

@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - measurable
+    - common_measurable

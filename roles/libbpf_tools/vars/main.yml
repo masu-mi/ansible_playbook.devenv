@@ -1,0 +1,2 @@
+---
+libbpf_tools_pkgs: [ bison, flex, libelf1, binutils-dev, libreadline-dev ]

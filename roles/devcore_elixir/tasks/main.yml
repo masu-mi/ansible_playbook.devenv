@@ -1,0 +1,35 @@
+---
+- when: ansible_system == 'Darwin'
+  block:
+    - homebrew:
+        name: "asdf"
+        state: present
+    - ansible.builtin.include_role:
+        name: cimon-io.asdf
+        apply:
+          tags:
+            - asdf-plugins
+      vars:
+        asdf_user: "{{ devcore_elixir_user }}"
+        asdf_group: "{{ devcore_elixir_group_id }}"
+        asdf_plugins:
+          - name: "erlang"
+            versions: "{{ devcore_elixir_erlang_versions }}"
+            global:   "{{ devcore_elixir_erlang_versions[0] }}"
+          - name: "elixir"
+            versions: "{{ devcore_elixir_elixir_versions }}"
+            global:   "{{ devcore_elixir_elixir_versions[0] }}"
+- when: ansible_system == 'Linux'
+  block:
+  - ansible.builtin.include_role:
+      name: cimon-io.asdf
+    vars:
+      asdf_user: "{{ devcore_elixir_user }}"
+      asdf_group: "{{ devcore_elixir_group_id }}"
+      asdf_plugins:
+        - name: "erlang"
+          versions: "{{ devcore_elixir_erlang_versions }}"
+          global:   "{{ devcore_elixir_erlang_versions[0] }}"
+        - name: "elixir"
+          versions: "{{ devcore_elixir_elixir_versions }}"
+          global:   "{{ devcore_elixir_elixir_versions[0] }}"

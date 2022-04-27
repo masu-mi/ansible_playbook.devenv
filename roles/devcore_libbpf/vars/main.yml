@@ -1,0 +1,2 @@
+---
+devcore_libbpf_pkg: [ llvm, clang, libbpf-dev ]

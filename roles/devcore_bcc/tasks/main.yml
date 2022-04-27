@@ -1,0 +1,8 @@
+---
+- name: Install pkgs for bcc
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ devcore_bcc_pkg }}"
+  become: yes
+  when: ansible_os_family == 'Debian'

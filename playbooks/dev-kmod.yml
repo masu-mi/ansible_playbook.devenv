@@ -1,62 +1,9 @@
 ---
 - hosts: all
-  vars:
-    _pkg_for_kmod: [
-      build-essential, bc, bison, flex, libssl-dev,
-      libelf-dev, libssl-dev, libncurses5-dev
-    ]
-    _pkg_for_build: [
-      gawk, wget, git, diffstat, unzip, texinfo,
-      gcc-multilib, chrpath, socat, xterm, lzop, kmod, libsdl1.2-dev,
-      build-essential, flex, libelf-dev, libncurses5-dev
-    ]
-    # _pkg_for_libbpf: [ llvm, clang, gcc-bpf, libbpf-dev ]
-    _pkg_for_libbpf: [ llvm, clang, libbpf-dev ]
-    _pkg_for_toolsbpf: [ bison, flex, libelf1, binutils-dev, libreadline-dev ]
-    _pkg_for_bcc: [
-      libbpfcc, libbpfcc-dev,
-      bpfcc-tools, python3-bpfcc, bpfcc-lua,
-      bpftrace
-    ]
-
-    _dev_kernel_pkgs: "{{ dev_kernel_pkgs | default(_dev_kernel_default_pkgs) }}"
-    _dev_kernel_default_pkgs: [
-      qemu, qemu-system, qemu-utils,
-    ]
-  tasks:
-  - name: Install pkgs for kernel build
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _pkg_for_build }}"
-    become: yes
-  - name: Install pkgs for kmod
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _pkg_for_kmod }}"
-    become: yes
-  - name: Install pkgs for libbpf
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _pkg_for_libbpf }}"
-    become: yes
-  - name: Install pkgs for build tools/bpf
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _pkg_for_toolsbpf }}"
-    become: yes
-  - name: Install pkgs for bcc
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _pkg_for_bcc }}"
-    become: yes
-  - name: Install pkgs for debug
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ _dev_kernel_pkgs }}"
-    become: yes
+  roles:
+    - debug_vm
+    - devcore_linux_kernel
+    - devcore_linux_kmod
+    - devcore_bcc
+    - devcore_libbpf
+    - libbpf_tools

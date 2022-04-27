@@ -1,0 +1,6 @@
+---
+devcore_linux_kernel_pkgs: [
+  gawk, wget, git, diffstat, unzip, texinfo,
+  gcc-multilib, chrpath, socat, xterm, lzop, kmod, libsdl1.2-dev,
+  build-essential, flex, libelf-dev, libncurses5-dev
+]

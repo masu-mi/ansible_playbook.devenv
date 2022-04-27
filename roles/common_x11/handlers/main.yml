@@ -1,0 +1,7 @@
+---
+- name: restart_sshd
+  service:
+    name: ssh
+    state: restarted
+  async: 1
+  become: true

@@ -1,0 +1,6 @@
+---
+devcore_elixir_user: "{{ ansible_user_id }}"
+devcore_elixir_group_id: "{{ ansible_real_group_id }}"
+
+devcore_elixir_erlang_versions: ["23.3.4.13"]
+devcore_elixir_elixir_versions: ["1.13.4"]

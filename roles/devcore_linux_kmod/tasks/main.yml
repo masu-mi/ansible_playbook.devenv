@@ -1,0 +1,8 @@
+---
+- name: Install pkgs for kmod
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ devcore_linux_kmod_pkgs }}"
+  become: yes
+  when: ansible_os_family == 'Debian'
