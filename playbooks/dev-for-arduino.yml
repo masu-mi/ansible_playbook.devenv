@@ -1,25 +1,5 @@
 ---
 - hosts: all
   vars:
-    _user_home: "{{ ansible_env.HOME }}"
-    _avr_buildable_toolchain: nightly-2021-01-07
-  tasks:
-  - when: ansible_os_family == "Debian"
-    name: "Install avr tools"
-    become: yes
-    apt:
-      name: "{{ item }}"
-    loop: [ binutils, gcc-avr, avr-libc, avrdude ]
-  - when: ansible_system == 'Darwin'
-    block:
-    - name: homebrew tap osx-cross/avr
-      community.general.homebrew_tap:
-        name: osx-cross/avr
-    - name: Install pkgs for avr-build-env
-      homebrew:
-        name: "{{ item }}"
-      loop: [ avr-gcc, coreutils, avrdude ]
-  - name: Install AVR buildable nightly toolchain
-    command: "{{ _user_home }}/.cargo/bin/rustup install {{ _avr_buildable_toolchain }}"
-  - name: Add rust-src component to the AVR buildable toolchain
-    command: "{{ _user_home }}/.cargo/bin/rustup component add rust-src --toolchain {{ _avr_buildable_toolchain }}"
+  roles:
+    - with_rust_arduino

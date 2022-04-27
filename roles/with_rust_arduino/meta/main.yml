@@ -1,0 +1,4 @@
+galaxy_info:
+dependencies:
+  - devcore_rust
+  - devcore_arduino

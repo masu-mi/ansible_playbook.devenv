@@ -1,24 +1,4 @@
 ---
 - hosts: all
-  vars:
-    version: "3.18.0"
-    os_type:
-      "Darwin": "osx"
-      "Linux": "linux"
-    asset_name: "protoc-{{ version }}-{{ os_type[ansible_system] }}-{{ ansible_machine }}.zip"
-  tasks:
-  - name: install protoc | downaload
-    github_asset:
-      repository: "protocolbuffers/protobuf"
-      asset_name: "{{ asset_name }}"
-      tag: "v{{ version }}"
-      dest: "/tmp/"
-  - name: make place
-    file:
-      path: "{{ ansible_env.HOME }}/local/protoc/"
-      state: directory
-  - name: install protoc
-    unarchive:
-      src: "/tmp/{{ asset_name }}"
-      dest: "{{ ansible_env.HOME }}/local/protoc/"
-      remote_src: yes
+  roles:
+    - protoc

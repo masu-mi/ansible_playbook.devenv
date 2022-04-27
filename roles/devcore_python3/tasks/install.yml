@@ -1,0 +1,8 @@
+---
+- name: Install Python3
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ devcore_python3_pkgs }}"
+  when: ansible_os_family == 'Debian'
+  become: yes

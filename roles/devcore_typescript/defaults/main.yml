@@ -1,0 +1,5 @@
+---
+devcore_typescript_home: "{{ ansible_env.HOME }}"
+devcore_typescript_nodejs_versions: [ "16.14.0", "17.7.0" ]
+devcore_typescript_nodejs_used_version: "16.14.0"
+devcore_typescript_deno_version: "1.19.3"

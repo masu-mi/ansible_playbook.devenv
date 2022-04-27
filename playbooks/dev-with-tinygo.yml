@@ -1,22 +1,4 @@
 ---
 - hosts: all
-  vars:
-    _version: 0.20.0
-    _file_name: "tinygo_{{ _version }}_amd64.deb"
-  tasks:
-  - when: ansible_os_family == "Debian"
-    block:
-    - name: get deb
-      get_url:
-        url: "https://github.com/tinygo-org/tinygo/releases/download/v{{ _version }}/{{ _file_name }}"
-        dest: "/tmp/{{ _file_name }}"
-    - name: install tinygo
-      apt:
-        deb: "/tmp/{{ _file_name }}"
-      become: yes
-  - when: ansible_system == "Darwin"
-    block:
-    - community.general.homebrew_tap:
-        name: tinygo-org/tools
-    - homebrew:
-        name: "tinygo"
+  roles:
+    - devcore_tinygo

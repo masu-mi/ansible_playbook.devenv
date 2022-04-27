@@ -1,0 +1,10 @@
+---
+- name: Install pip3 packages
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  loop: "{{ devcore_python3_pip_pkgs }}"
+- name: Install poetry with recomended process
+  shell: |
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | \
+    python3 /dev/stdin --yes --no-modify-path

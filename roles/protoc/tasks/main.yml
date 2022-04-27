@@ -1,0 +1,16 @@
+---
+- name: install protoc | downaload
+  github_asset:
+    repository: "protocolbuffers/protobuf"
+    asset_name: "{{ asset_name }}"
+    tag: "v{{ version }}"
+    dest: "/tmp/"
+- name: make place
+  file:
+    path: "{{ ansible_env.HOME }}/local/protoc/"
+    state: directory
+- name: install protoc
+  unarchive:
+    src: "/tmp/{{ asset_name }}"
+    dest: "{{ ansible_env.HOME }}/local/protoc/"
+    remote_src: yes

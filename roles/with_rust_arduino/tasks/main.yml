@@ -1,0 +1,5 @@
+---
+- name: Install AVR buildable nightly toolchain
+  command: "{{ with_rust_arduino_home }}/.cargo/bin/rustup install {{ with_rust_arduino_avr_buildable_toolchain }}"
+- name: Add rust-src component to the AVR buildable toolchain
+  command: "{{ with_rust_arduino_home }}/.cargo/bin/rustup component add rust-src --toolchain {{ with_rust_arduino_avr_buildable_toolchain }}"

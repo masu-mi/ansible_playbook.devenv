@@ -1,0 +1,2 @@
+---
+devcore_tinygo_file_name: "tinygo_{{ devcore_tinygo_version }}_amd64.deb"

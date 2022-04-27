@@ -1,0 +1,10 @@
+---
+# defaults file for devcore_python3
+devcore_python3_pkgs: [ python3-pip, python3-dev ]
+devcore_python3_pip_pkgs: [
+  cookiecutter,
+  mypy, pep8, pyflakes3k, pylint,
+  setuptools, wheel, twine,
+  virtualenv, virtualenvwrapper,
+  pipenv, pip-review,
+]

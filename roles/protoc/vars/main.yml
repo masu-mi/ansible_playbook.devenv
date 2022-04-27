@@ -1,0 +1,5 @@
+---
+asset_name: "protoc-{{ version }}-{{ os_type[ansible_system] }}-{{ ansible_machine }}.zip"
+os_type:
+  "Darwin": "osx"
+  "Linux": "linux"

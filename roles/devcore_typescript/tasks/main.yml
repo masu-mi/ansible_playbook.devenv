@@ -1,0 +1,17 @@
+---
+- name: install nodebrew
+  shell: |
+    curl -L git.io/nodebrew | perl - setup
+  args:
+    creates: "{{ devcore_typescript_home }}/.nodebrew/current/bin/nodebrew"
+- name: install nodejs
+  shell: |
+    {{ devcore_typescript_home }}/.nodebrew/current/bin/nodebrew install {{ item }} | cat
+  with_items: "{{ devcore_typescript_nodejs_versions }}"
+- name: install nodejs
+  shell: |
+    {{ devcore_typescript_home }}/.nodebrew/current/bin/nodebrew use v{{ devcore_typescript_nodejs_used_version }} | cat
+
+- name: install deno
+  shell: |
+    curl -fsSL https://deno.land/x/install/install.sh | sh /dev/stdin "v{{ devcore_typescript_deno_version }}"

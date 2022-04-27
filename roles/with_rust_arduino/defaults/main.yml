@@ -1,0 +1,3 @@
+---
+with_rust_arduino_avr_buildable_toolchain: nightly-2021-01-07
+with_rust_arduino_home: "{{ ansible_env.HOME }}"
