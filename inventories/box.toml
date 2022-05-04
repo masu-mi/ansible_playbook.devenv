@@ -1,5 +1,6 @@
 [all]
 deb0
+host
 default
 test-k3s
 

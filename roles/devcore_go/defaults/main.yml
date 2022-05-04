@@ -1,8 +1,8 @@
 ---
 devcore_go_home: "{{ ansible_env.HOME }}"
-devcore_go_boot_version: "{{ go_boot_version | default('1.8.3') }}"
+devcore_go_boot_version: "{{ go_boot_version | default('1.8') }}"
 devcore_go_boot_root: "{{ devcore_go_home }}/go{{ devcore_go_boot_version }}"
 devcore_go_target_arch: "{{ go_target_arch | default('linux-amd64') }}"
 devcore_go_goroot: "{{ devcore_go_home }}/go"
-devcore_go_version: "{{ go_version | default('1.18') }}"
+devcore_go_version: "{{ go_version | default('1.18.1') }}"
 devcore_go_gopath: "{{ devcore_go_home }}/dev"

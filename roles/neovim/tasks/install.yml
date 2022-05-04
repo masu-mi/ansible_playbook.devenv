@@ -10,6 +10,9 @@
     src: "/tmp/{{ __neovim_asset_name }}.tar.gz"
     dest: "/tmp/"
     remote_src: yes
+- file:
+    path: "{{ ansible_env.HOME }}/local"
+    state: directory
 - name: install neovim
   copy:
     dest: "{{ ansible_env.HOME }}/local/nvim"

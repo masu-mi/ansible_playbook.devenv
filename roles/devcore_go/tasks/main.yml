@@ -1,13 +1,12 @@
 ---
 - name: "Make directories for '~/dev' as $GOPATH"
   file:
-    path: "{{ path }}"
+    path: "{{ item }}"
     state: directory
-  vars:
-    path:
-    - "{{ devcore_go_gopath }}"
-    - "{{ devcore_go_gopath }}/bin"
-    - "{{ devcore_go_gopath }}/src"
+  loop:
+  - "{{ devcore_go_gopath }}"
+  - "{{ devcore_go_gopath }}/bin"
+  - "{{ devcore_go_gopath }}/src"
 - name: "Create bootstrap go dir (v{{ devcore_go_boot_version }})"
   file:
     path: "{{ devcore_go_boot_root }}"
@@ -37,6 +36,7 @@
   environment:
     GOROOT: "{{ devcore_go_goroot }}"
     GOROOT_BOOTSTRAP: "{{ devcore_go_boot_root }}"
+    GOPATH: "{{ devcore_go_gopath }}"
   args:
     chdir: "{{ devcore_go_goroot }}/src"
     creates: "{{ devcore_go_goroot }}/bin/go"
