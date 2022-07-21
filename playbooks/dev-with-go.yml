@@ -4,3 +4,4 @@
     - devcore_go
     - with_grpc
     - with_github_actions
+    - k6
