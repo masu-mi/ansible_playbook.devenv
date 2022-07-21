@@ -1,0 +1,3 @@
+---
+buf_bin: "{{ ansible_env.HOME }}/local/bin"
+buf_version: "1.6.0"
