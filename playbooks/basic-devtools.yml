@@ -1,9 +1,5 @@
 ---
 - hosts: all
-  vars:
-    vim_dependent_pkgs:
-      '20': [ lua5.3, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
-      '21': [ lua5.4, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
     # - name: Install lua apt libraries for Ubuntu (used by Vim)
     #   apt:
     #     name: "{{ item }}"

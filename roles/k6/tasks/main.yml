@@ -1,13 +1,15 @@
 ---
 - name: install k6 with apt
   when: ansible_os_family == 'Debian'
+  become: yes
   block:
-    - name: Add an Apt signing key to a specific keyring file
+    - shell: gpg --list-keys
+    - name: add an apt signing key to a specific keyring file
       ansible.builtin.apt_key:
         id: C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-        keyserver: keyserver.ubuntu.com:80
+        keyserver: hkp://keyserver.ubuntu.com:80
         keyring: /usr/share/keyrings/k6-archive-keyring.gpg
-    - name: Add specified repository into sources list
+    - name: add specified repository into sources list
       ansible.builtin.apt_repository:
         repo: "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main"
         filename: k6
@@ -18,3 +20,8 @@
   when: ansible_system == 'Darwin'
   community.general.homebrew:
     name: k6
+- ansible.builtin.include_role:
+    name: cmd_install
+    tasks_from: goinstall
+  loop:
+  - "go.k6.io/xk6/cmd/xk6@latest"

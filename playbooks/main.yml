@@ -1,0 +1,17 @@
+---
+- hosts: all
+  roles:
+    - common_ansible_appliable
+    - common_locale
+    - common_timesyncd
+    - common_measurable
+    - dev_utils
+    - neovim
+    - devcore_go
+    - with_grpc
+    - with_github_actions
+    - k6
+    - protoc
+    - buf
+    - devcore_xdp
+    - devcore_rust

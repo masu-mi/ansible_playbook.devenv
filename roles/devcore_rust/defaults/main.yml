@@ -6,5 +6,5 @@ _rust_default_packages: [
   'cargo-audit', 'cargo-crev',
 ]
 _rust_wasm_packages: [ 'wasm-pack' ]
-_rust_nigtly_packages: [ racer ]
+_rust_nigtly_packages: [] #[ racer ]
 _user_home: "{{ ansible_env.HOME }}"

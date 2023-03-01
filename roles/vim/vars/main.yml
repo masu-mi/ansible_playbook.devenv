@@ -1,0 +1,5 @@
+---
+vim_dependent_pkgs:
+  '20': [ lua5.3, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
+  '21': [ lua5.4, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]
+  '22': [ lua5.4, libtolua-dev, luajit, libluajit-5.1-dev, luarocks ]

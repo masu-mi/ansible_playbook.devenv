@@ -1,0 +1,4 @@
+---
+gohome: "{{ ansible_env.HOME }}"
+goroot: "{{ gohome }}/go"
+gopath: "{{ gohome }}/dev"

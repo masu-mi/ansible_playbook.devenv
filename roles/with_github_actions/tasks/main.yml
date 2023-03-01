@@ -1,7 +1,11 @@
 ---
-- name: install tools
-  shell: "{{ devcore_go_goroot }}/bin/go install {{ item }}"
-  environment:
-    GOPATH: "{{ devcore_go_gopath }}"
+- name: install gh
+  apt:
+    name: gh
+  become: yes
+- name: install act
+  ansible.builtin.include_role:
+    name: cmd_install
+    tasks_from: gh_extension
   loop:
-  - "github.com/nektos/act@latest"
+  - "nektos/gh-act"

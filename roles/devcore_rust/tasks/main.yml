@@ -13,8 +13,12 @@
   loop: [ nightly, stable ]
 - name: Set restup default stable
   command: "{{ _user_home }}/.cargo/bin/rustup default stable"
-- name: Set component add rust-src
-  shell: "{{ _user_home }}/.cargo/bin/rustup component add rust-src"
+- name: "add component {{ item }} stable"
+  shell: "{{ _user_home }}/.cargo/bin/rustup component add {{ item }}"
+  loop: [ rust-src, rustc-dev ]
+- name: "add component {{ item }} nightly"
+  shell: "{{ _user_home }}/.cargo/bin/rustup component add {{ item }} --toolchain=nightly"
+  loop: [ rust-src, rustc-dev ]
 - name: Insstall nighly packages
   command: "{{ _user_home }}/.cargo/bin/cargo +nightly install {{ item }}"
   args:

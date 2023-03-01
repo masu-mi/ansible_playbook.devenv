@@ -1,0 +1,5 @@
+---
+- name: install {{ item }}(gotool)
+  shell: "{{ goroot }}/bin/go install {{ item }}"
+  environment:
+    GOPATH: "{{ gopath }}"

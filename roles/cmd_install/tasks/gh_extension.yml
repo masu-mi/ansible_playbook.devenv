@@ -1,0 +1,12 @@
+---
+
+- name:
+  shell: |
+    gh extension list | grep '{{ item }}'
+  args:
+    warn: false
+  register: prepare
+  ignore_errors: true
+- name: install {{ item }}(gh extension)
+  shell: "gh extension install {{ item }}"
+  when: prepare.rc == 1

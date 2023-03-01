@@ -31,6 +31,11 @@
     path: "{{ devcore_go_goroot }}/bin/go"
     state: absent
   when: go_prepare.changed
+- name: install pkgs for building Go
+  apt:
+    name: gcc
+  become: yes
+  when: ansible_os_family == 'Debian'
 - name: Install Go
   shell: . ./all.bash
   environment:
@@ -40,13 +45,13 @@
   args:
     chdir: "{{ devcore_go_goroot }}/src"
     creates: "{{ devcore_go_goroot }}/bin/go"
-- name: Install Go tools
-  shell: "{{ devcore_go_goroot }}/bin/go install {{ item }}"
-  environment:
-    GOPATH: "{{ devcore_go_gopath }}"
+- name: install favarit favorite tools
+  ansible.builtin.include_role:
+    name: cmd_install
+    tasks_from: goinstall
   loop:
-  - "github.com/goreleaser/goreleaser@latest"
-  - "github.com/google/ko@latest"
-  - "github.com/kyoh86/richgo@latest"
-  - "github.com/go-delve/delve/cmd/dlv@latest"
-  - "github.com/xo/xo@latest"
+    - "github.com/goreleaser/goreleaser@latest"
+    - "github.com/google/ko@latest"
+    - "github.com/kyoh86/richgo@latest"
+    - "github.com/go-delve/delve/cmd/dlv@latest"
+    - "github.com/xo/xo@latest"
