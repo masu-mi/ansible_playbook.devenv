@@ -3,7 +3,7 @@
     url: "https://github.com/bufbuild/buf/releases/download/v{{ buf_version }}/buf-{{ ansible_system }}-{{ ansible_architecture }}"
     dest: "{{ buf_bin }}/buf"
     mode: '0755'
-  when: ansible_distribution == "Debian"
+  when: ansible_os_family == 'Debian'
 - ansible.builtin.homebrew:
     name: "bufbuild/buf/buf"
   when: ansible_system == "Darwin"

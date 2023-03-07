@@ -1,6 +1,8 @@
 ---
 # defaults file for devcore_python3
-devcore_python3_pkgs: [ python3-pip, python3-dev ]
+devcore_python3_pkgs: [
+  python3-pip, python3-dev,
+  libbz2-dev, libssl-dev, libreadline-dev, libsqlite3-dev, liblzma-dev ]
 devcore_python3_pip_pkgs: [
   cookiecutter,
   mypy, pep8, pyflakes3k, pylint,
