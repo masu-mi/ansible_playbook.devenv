@@ -3,10 +3,16 @@
   apt:
     name: "{{ item }}"
     state: present
-  # loop: [ tcpdump, tshark, termshark, wireshark ]
-  loop: [ tcpdump, tshark, wireshark, nmap, whois, bind9-dnsutils ]
+  loop: [ tcpdump, tshark, wireshark, nmap, whois, bind9-dnsutils, trace-cmd ]
   become: yes
   when: ansible_os_family == 'Debian'
+- name: "Install packages (Ubuntu)"
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: [ termshark ]
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
 - name: "Install packages (Darwin)"
   homebrew:
     name: "{{ item }}"
