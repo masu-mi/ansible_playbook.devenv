@@ -1,0 +1,3 @@
+---
+_zig_archive_filename: "zig-linux-{{ ansible_architecture }}-{{ _zig_version }}.tar.xz"
+_zig_download_url: "https://ziglang.org/download/{{ _zig_version }}/{{ _zig_archive_filename }}"

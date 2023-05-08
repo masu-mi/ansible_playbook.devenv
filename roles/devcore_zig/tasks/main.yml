@@ -1,0 +1,25 @@
+---
+- name: assert /home/local exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/local/"
+    state: directory
+    mode: "0755"
+- name: mk tmp dir
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: dwzig
+  register: tempdir
+- name: Get zig archive
+  get_url:
+    url: "{{ _zig_download_url }}"
+    dest: "{{ tempdir.path }}/{{ _zig_archive_filename }}"
+    mode: 0755
+- unarchive:
+    src: "{{ tempdir.path }}/{{ _zig_archive_filename }}"
+    dest: "{{ ansible_env.HOME }}/local/"
+    remote_src: yes
+- name: Use the registered var and the file module to remove the temporary file
+  ansible.builtin.file:
+    path: "{{ tempdir.path }}"
+    state: absent
+  when: tempdir.path is defined
